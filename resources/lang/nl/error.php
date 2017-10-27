@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Error!' => 'Fout!',
+  'Forbidden!' => 'Verboden!',
+  'Enter a title' => 'Voer een titel in',
+  'Something is going wrong...' => 'Er is iets foutgegaan...',
+  'Something is wrong with the format' => 'Er is iets foutgegaan met het formaat',
+  'Enter an email address' => 'Voer een emailadres in',
+  'The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.' => 'Het adres is niet juist! Je moet een geldig emailadres invoeren (zoals r.stallman@outlock.com) zodat je de link naar je poll kan ontvangen.',
+  'No polls found' => 'Geen polls gevonden',
+  'There is a problem with your choices' => 'Er is een probleem met je keuzes',
+  'You haven\'t filled the first section of the poll creation.' => 'Je hebt het eerste gedeelte van de poll niet ingevuld.',
+  'Javascript is disabled on your browser. Its activation is required to create a poll.' => 'JavaScript is uitgeschakeld in je browser. JavaScript is nodig om een poll aan te maken.',
+  'Cookies are disabled on your browser. Theirs activation is required to create a poll.' => 'Cookies zijn uitgeschakeld in je browser. Cookies zijn nodig om een poll aan te maken.',
+  'This poll doesn\'t exist !' => 'Deze poll bestaat niet!',
+  'Enter a name' => 'Vul een naam in',
+  'The name is invalid.' => 'De naam is niet geldig.',
+  'The name you\'ve chosen already exist in this poll!' => 'De naam die je hebt gekozen, bestaat al in deze poll!',
+  'Enter a name and a comment!' => 'Vul een naam en een opmerking in!',
+  'Failed to insert the comment!' => 'Het is niet gelukt om de opmerking in te voegen!',
+  'Failed to delete the vote!' => 'Het is niet gelukt de stem te verwijderen!',
+  'laradate is not properly installed, please check the "INSTALL" to setup the database before continuing.' => 'laradate is niet juist geïnstalleerd, bekijk het \'INSTALL\'-bestand voor instructies om de database in te stellen voordat je verdergaat.',
+  'Failed to save poll' => 'Opslaan van de poll gefaald',
+  'Update vote failed' => 'Wijzigen stem gefaald',
+  'Adding vote failed' => 'Toevoegen stem gefaald',
+  'You already voted' => 'Je hebt al gestemd',
+  'Poll has been updated before you vote' => 'De poll is gewijzigd voordat je stemde',
+  'Comment failed' => 'Opmerking mislukt',
+  'You can\'t create a poll with hidden results with the following edition option:' => 'Je kan geen poll met verborgen resultaten maken met de volgende optie: ',
+  'Failed to delete column' => 'Kolom verwijderen mislukt',
+  'The column already exists' => 'De kolom bestaat reeds',
+  'MISSING_VALUES' => 'Ontbrekende waarden',
+  'CANT_CONNECT_TO_DATABASE' => 'Kan geen verbinding maken met de database',
+  'Password is empty' => 'Het wachtwoord is leeg',
+  'Passwords do not match' => 'De wachtwoorden zijn niet gelijk',
+  'Poll id already used' => 'Deze ID is reeds gebruikt',
+  'You can\'t select more than :d dates' => 'Je kan niet meer dan :d dagen kiezen',
+  'Can\'t create the config.php file in \':s\'.' => 'Kan het bestand config.php niet maken in \':s\'.',
+  'Can\'t create an empty column.' => 'Kan geen lege kolom maken.',
+]
+
+;

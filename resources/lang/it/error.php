@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Error!' => 'Errore!',
+  'Forbidden!' => 'Proibito!',
+  'Enter a title' => 'È necessario inserire un titolo !',
+  'Something is going wrong...' => 'Qualcosa non è corretto...',
+  'Something is wrong with the format' => 'Qualche errore nel formato',
+  'Enter an email address' => 'È necessario inserire un indirizzo e-mail!',
+  'The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.' => 'L\'indirizzo inserito non è corretto ! È necessario un indirizzo e-mail valido (per esempio r.stallman@outlock.com) per ricevere il link del sondaggio.',
+  'No polls found' => 'Nessun sondaggio trovato',
+  'There is a problem with your choices' => 'C\'è un problema con la vostra scelta',
+  'You haven\'t filled the first section of the poll creation.' => 'Non avete completato la prima pagina del sondaggio',
+  'Javascript is disabled on your browser. Its activation is required to create a poll.' => 'Javascript è disattivato sul vostro browser. E\' necessario attivarlo per creare un sondaggio.',
+  'Cookies are disabled on your browser. Theirs activation is required to create a poll.' => 'I cookies non sono permessi sul vostro browser. E\' necessario permetterli per creare un sondaggio.',
+  'This poll doesn\'t exist !' => 'Questo sondaggio non esiste più !',
+  'Enter a name' => 'Non avete inserito il nome !',
+  'The name is invalid.' => 'Nome non valido.',
+  'The name you\'ve chosen already exist in this poll!' => 'Il nome che avete scelto esiste già !',
+  'Enter a name and a comment!' => 'Inserire un nome e un commento!',
+  'Failed to insert the comment!' => 'Errore nell\'inserimento del commento !',
+  'Failed to delete the vote!' => 'IT_Échec de la suppression du vote !',
+  'laradate is not properly installed, please check the "INSTALL" to setup the database before continuing.' => 'laradate non è installato correttamente, leggete la cartella INSTALL per configurare il database prima di continuare.',
+  'Failed to save poll' => 'Errore nel salvataggio del sondaggio',
+  'Update vote failed' => 'Aggiornamento del voto fallito',
+  'Adding vote failed' => 'Aggiunta del voto fallito',
+  'You already voted' => 'IT_Vous avez déjà voté',
+  'Poll has been updated before you vote' => 'IT_Le sondage a été mis à jour avant votre vote',
+  'Comment failed' => 'Commento fallito',
+  'You can\'t create a poll with hidden results with the following edition option:' => 'Non potete creare un sondaggio con i risultati nascosti con queste opzioni: ',
+  'Failed to delete column' => 'Impossibile eliminare la colonna',
+  'The column already exists' => 'IT_La colonne existe déjà',
+  'MISSING_VALUES' => 'Valori mancanti',
+  'CANT_CONNECT_TO_DATABASE' => 'Impossibile connettersi al database',
+  'Password is empty' => 'IT_Le mot de passe est vide.',
+  'Passwords do not match' => 'IT_Les mots de passe ne correspondent pas.',
+  'Poll id already used' => 'IT_L\'identifiant est déjà utilisé',
+  'You can\'t select more than :d dates' => 'IT_Vous ne pouvez pas choisir plus de :d dates',
+  'Can\'t create the config.php file in \':s\'.' => 'IT_Impossible de créer le fichier config.php dans \':s\'.',
+  'Can\'t create an empty column.' => 'IT_Impossible de créer une colonne vide.',
+]
+
+;

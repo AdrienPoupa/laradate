@@ -1,0 +1,47 @@
+<?php
+
+return 
+
+[
+  'Make your polls' => 'Organiser des rendez-vous simplement, librement.',
+  'Home' => 'Accueil',
+  'Poll' => 'Sondage',
+  'Save' => 'Enregistrer',
+  'Cancel' => 'Annuler',
+  'Add' => 'Ajouter',
+  'Remove' => 'Effacer',
+  'Validate' => 'Valider',
+  'Edit' => 'Modifier',
+  'Next' => 'Continuer',
+  'Back' => 'Précédent',
+  'Close' => 'Fermer',
+  'Your name' => 'Votre nom',
+  'Your email address' => 'Votre courriel',
+  '(in the format name@mail.com)' => '(au format nom@mail.com)',
+  'Description' => 'Description',
+  'Back to the homepage of' => 'Retourner à la page d\'accueil de',
+  'days' => 'jours',
+  'months' => 'mois',
+  'Day' => 'Jour',
+  'Time' => 'Horaire',
+  'with' => 'avec',
+  'vote' => 'vote',
+  'votes' => 'votes',
+  'for' => 'à',
+  'Yes' => 'Oui',
+  'Ifneedbe' => 'Si nécessaire',
+  'No' => 'Non',
+  'Legend:' => 'Légende :',
+  'Date' => 'Date',
+  'Classic' => 'Classique',
+  'Page generated in' => 'Page générée en',
+  'seconds' => 'secondes',
+  'Choice' => 'Choix',
+  'Link' => 'Lien',
+  'Search' => 'Chercher',
+  'Creation date:' => 'Date de création :',
+  'Caption' => 'Légende',
+  'ASTERISK' => '*',
+]
+
+;

@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Remove the poll' => 'Verwijder de poll',
+  'Remove all the comments' => 'Verwijder alle opmerkingen',
+  'Remove all the votes' => 'Verwijder alle stemmen',
+  'Print' => 'Print',
+  'Export to CSV' => 'Exporteer naar CSV',
+  'Title' => 'Titel van de poll',
+  'Edit the title' => 'Bewerk titel',
+  'Save the new title' => 'Nieuwe titel opslaan',
+  'Cancel the title edit' => 'Titel bewerken annuleren',
+  'Initiator of the poll' => 'Initiatiefnemer van deze poll',
+  'Edit the name' => 'Bewerk naam',
+  'Save the new name' => 'Nieuwe naam opslaan',
+  'Cancel the name edit' => 'Naam bewerken annuleren',
+  'Email' => 'Email',
+  'Edit the email adress' => 'Bewerk emailadres',
+  'Save the email address' => 'Emailadres opslaan',
+  'Cancel the email address edit' => 'Emailadres bewerken annuleren',
+  'Edit the description' => 'Bewerk de beschrijving',
+  'Save the description' => 'Beschrijving opslaan',
+  'Cancel the description edit' => 'Beschrijving bewerken annuleren',
+  'Public link of the poll' => 'Publieke link naar de poll',
+  'Admin link of the poll' => 'Admin-link naar de poll',
+  'Expiration date' => 'Vervaldatum',
+  'Edit the expiration date' => 'Bewerk de vervaldatum',
+  'Save the new expiration date' => 'Nieuwe vervaldatum opslaan',
+  'Cancel the expiration date edit' => 'Vervaldatum bewerken annuleren',
+  'Poll rules' => 'Regels voor de poll',
+  'Edit the poll rules' => 'Bewerk de regels voor de poll',
+  'Votes and comments are locked' => 'Stemmen en opmerkingen zijn uitgeschakeld',
+  'Save the new rules' => 'Nieuwe regels opslaan',
+  'Cancel the rules edit' => 'Regels bewerken annuleren',
+  'Results are hidden' => 'Resultaten zijn verborgen.',
+  'Results are visible' => 'Resultaten zijn zichtbaar.',
+  'Password protected' => 'Beveiligd met een wachtwoord',
+  'Votes protected by password' => 'Stemmen beveiligd met een wachtwoord',
+  'No password' => 'Geen wachtwoord',
+  'Remove password' => 'Wachtwoord verwijderen',
+]
+
+;

@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Remove the poll' => 'Umfrage löschen',
+  'Remove all the comments' => 'Alle Kommentare löschen',
+  'Remove all the votes' => 'Alle Wertungen löschen',
+  'Print' => 'Drucken',
+  'Export to CSV' => 'CSV-Export',
+  'Title' => 'Titel',
+  'Edit the title' => 'Titel bearbeiten',
+  'Save the new title' => 'Den neuen Titel speichern',
+  'Cancel the title edit' => 'Abbruch, Titel nicht ändern',
+  'Initiator of the poll' => 'Autor der Umfrage',
+  'Edit the name' => 'Bearbeiten Sie den Namen',
+  'Save the new name' => 'Speichern Sie den neuen Namen',
+  'Cancel the name edit' => 'Abbruch, Namen nicht ändern',
+  'Email' => 'E-Mail-Adresse',
+  'Edit the email adress' => 'E-Mail-Adresse ändern',
+  'Save the email address' => 'Speichern Sie die E-Mail-Adresse',
+  'Cancel the email address edit' => 'Abbruch, Mail-Adresse nicht ändern',
+  'Edit the description' => 'Beschreibung bearbeiten',
+  'Save the description' => 'Beschreibung speichern',
+  'Cancel the description edit' => 'Änderungen der Beschreibung verwerfen',
+  'Public link of the poll' => 'Öffentlicher Link zur Umfrage',
+  'Admin link of the poll' => 'Administrationsseite der Umfrage',
+  'Expiration date' => 'Ablaufdatum',
+  'Edit the expiration date' => 'Bearbeiten Sie das Ablaufdatum',
+  'Save the new expiration date' => 'Speichern Sie das neue Ablaufdatum',
+  'Cancel the expiration date edit' => 'Abbruch, Ablaufdatum nicht ändern',
+  'Poll rules' => 'Regeln der Umfrage',
+  'Edit the poll rules' => 'Regeln der Umfrage bearbeiten',
+  'Votes and comments are locked' => 'Wertungen und Kommentare sind gesperrt',
+  'Save the new rules' => 'Neue Regeln speichern',
+  'Cancel the rules edit' => 'Abbruch, Regeln nicht ändern',
+  'Results are hidden' => 'Ergebnisse werden ausgeblendet',
+  'Results are visible' => 'Ergebnisse sind sichtbar',
+  'Password protected' => 'Passwortgeschützt',
+  'Votes protected by password' => 'Wertungen sind passwortgeschützt',
+  'No password' => 'Kein Passwort',
+  'Remove password' => 'Passwort entfernen',
+]
+
+;

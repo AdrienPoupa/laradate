@@ -1,0 +1,47 @@
+<?php
+
+return 
+
+[
+  'Make your polls' => 'Make your polls',
+  'Home' => 'Home',
+  'Poll' => 'Poll',
+  'Save' => 'Save',
+  'Cancel' => 'Cancel',
+  'Add' => 'Add',
+  'Remove' => 'Remove',
+  'Validate' => 'Validate',
+  'Edit' => 'Edit',
+  'Next' => 'Next',
+  'Back' => 'Back',
+  'Close' => 'Close',
+  'Your name' => 'Your name',
+  'Your email address' => 'Your email address',
+  '(in the format name@mail.com)' => '(in the format name@mail.com)',
+  'Description' => 'Description',
+  'Back to the homepage of' => 'Back to the homepage of',
+  'days' => 'days',
+  'months' => 'months',
+  'Day' => 'Day',
+  'Time' => 'Time',
+  'with' => 'with',
+  'vote' => 'vote',
+  'votes' => 'votes',
+  'for' => 'for',
+  'Yes' => 'Yes',
+  'Ifneedbe' => 'Ifneedbe',
+  'No' => 'No',
+  'Legend:' => 'Legend:',
+  'Date' => 'Date',
+  'Classic' => 'Classic',
+  'Page generated in' => 'Page generated in',
+  'seconds' => 'seconds',
+  'Choice' => 'Choice',
+  'Link' => 'Link',
+  'Search' => 'Search',
+  'Creation date:' => 'Creation date:',
+  'Caption' => 'Caption',
+  'ASTERISK' => '*',
+]
+
+;

@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Remove the poll' => 'Supprimer le sondage',
+  'Remove all the comments' => 'Supprimer tous les commentaires',
+  'Remove all the votes' => 'Supprimer tous les votes',
+  'Print' => 'Imprimer',
+  'Export to CSV' => 'Export Tableur (CSV)',
+  'Title' => 'Titre du sondage',
+  'Edit the title' => 'Modifier le titre',
+  'Save the new title' => 'Enregistrer le nouveau titre',
+  'Cancel the title edit' => 'Annuler le changement de titre',
+  'Initiator of the poll' => 'Auteur du sondage',
+  'Edit the name' => 'Modification de l\'auteur',
+  'Save the new name' => 'Enregistrer l\'auteur',
+  'Cancel the name edit' => 'Annuler le changement d\'auteur',
+  'Email' => 'Courriel',
+  'Edit the email adress' => 'Modifier le courriel',
+  'Save the email address' => 'Enregistrer le courriel',
+  'Cancel the email address edit' => 'Annuler le changement de courriel',
+  'Edit the description' => 'Modifier la description',
+  'Save the description' => 'Enregistrer la description',
+  'Cancel the description edit' => 'Annuler le changement de description',
+  'Public link of the poll' => 'Lien public du sondage',
+  'Admin link of the poll' => 'Lien d\'administration du sondage',
+  'Expiration date' => 'Date d\'expiration',
+  'Edit the expiration date' => 'Modifier la date d\'expiration',
+  'Save the new expiration date' => 'Enregistrer la date d\'expiration',
+  'Cancel the expiration date edit' => 'Annuler le changement de date d\'expiration',
+  'Poll rules' => 'Permissions du sondage',
+  'Edit the poll rules' => 'Modifier les permissions du sondage',
+  'Votes and comments are locked' => 'Il n\'est plus possible de voter',
+  'Save the new rules' => 'Enregistrer les nouvelles permissions',
+  'Cancel the rules edit' => 'Annuler le changement de permissions',
+  'Results are hidden' => 'Les résultats sont cachés',
+  'Results are visible' => 'Les résultats sont visibles',
+  'Password protected' => 'Protégé par mot de passe',
+  'Votes protected by password' => 'Votes protégés par mot de passe',
+  'No password' => 'Pas de mot de passe',
+  'Remove password' => 'Supprimer le mot de passe',
+]
+
+;

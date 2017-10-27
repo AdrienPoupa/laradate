@@ -1,0 +1,6 @@
+\$config\['(\w*)']
+config('laradate.$1')
+
+__('Error', 'Something is wrong with the format') => __('error.Something is wrong with the format')
+__\('(\w*)'\, '(\w+( \w+)*)'\)
+__('\l$1.$2')

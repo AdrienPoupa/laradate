@@ -1,0 +1,47 @@
+<?php
+
+return 
+
+[
+  'Make your polls' => 'Maak je polls en datumprikkers',
+  'Home' => 'Home',
+  'Poll' => 'Poll',
+  'Save' => 'Opslaan',
+  'Cancel' => 'Annuleren',
+  'Add' => 'Toevoegen',
+  'Remove' => 'Verwijderen',
+  'Validate' => 'Valideer',
+  'Edit' => 'Bewerk',
+  'Next' => 'Volgende',
+  'Back' => 'Vorige',
+  'Close' => 'Sluiten',
+  'Your name' => 'Je naam',
+  'Your email address' => 'Je emailadres',
+  '(in the format name@mail.com)' => '(in het formaat naam@mail.com)',
+  'Description' => 'Beschrijving',
+  'Back to the homepage of' => 'Terug naar de homepage van',
+  'days' => 'dagen',
+  'months' => 'maanden',
+  'Day' => 'dagen',
+  'Time' => 'Tijd',
+  'with' => 'met',
+  'vote' => 'stem',
+  'votes' => 'stemmen',
+  'for' => 'voor',
+  'Yes' => 'Ja',
+  'Ifneedbe' => 'Indien nodig',
+  'No' => 'Nee',
+  'Legend:' => 'Legenda:',
+  'Date' => 'Datum',
+  'Classic' => 'Klassiek',
+  'Page generated in' => 'Pagina gegenereerd in',
+  'seconds' => 'seconden',
+  'Choice' => 'Keuze',
+  'Link' => 'Link',
+  'Search' => 'Zoek',
+  'Creation date:' => 'Aanmaakdatum:',
+  'Caption' => 'Legende',
+  'ASTERISK' => '*',
+]
+
+;

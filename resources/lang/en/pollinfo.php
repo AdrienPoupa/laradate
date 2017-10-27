@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Remove the poll' => 'Remove the poll',
+  'Remove all the comments' => 'Remove all comments',
+  'Remove all the votes' => 'Remove all votes',
+  'Print' => 'Print',
+  'Export to CSV' => 'Export to CSV',
+  'Title' => 'Title of the poll',
+  'Edit the title' => 'Edit title',
+  'Save the new title' => 'Save the new title',
+  'Cancel the title edit' => 'Cancel the title edit',
+  'Initiator of the poll' => 'Creator of the poll',
+  'Edit the name' => 'Edit name',
+  'Save the new name' => 'Save the new name',
+  'Cancel the name edit' => 'Cancel the name edit',
+  'Email' => 'Email',
+  'Edit the email adress' => 'Edit the email address',
+  'Save the email address' => 'Save the email address',
+  'Cancel the email address edit' => 'Cancel the email address edit',
+  'Edit the description' => 'Edit the description',
+  'Save the description' => 'Save the description',
+  'Cancel the description edit' => 'Cancel the description edit',
+  'Public link of the poll' => 'Public link to the poll',
+  'Admin link of the poll' => 'Admin link for the poll',
+  'Expiration date' => 'Expiry date',
+  'Edit the expiration date' => 'Edit the expiry date',
+  'Save the new expiration date' => 'Save the new expiration date',
+  'Cancel the expiration date edit' => 'Cancel the expiration date edit',
+  'Poll rules' => 'Poll rules',
+  'Edit the poll rules' => 'Edit the poll rules',
+  'Votes and comments are locked' => 'Votes and comments are locked',
+  'Save the new rules' => 'Save the new rules',
+  'Cancel the rules edit' => 'Cancel the rules edit',
+  'Results are hidden' => 'Results are hidden',
+  'Results are visible' => 'Results are visible',
+  'Password protected' => 'Password protected',
+  'Votes protected by password' => 'Votes protected by password',
+  'No password' => 'No password',
+  'Remove password' => 'Remove password',
+]
+
+;

@@ -1,0 +1,47 @@
+<?php
+
+return 
+
+[
+  'Make your polls' => 'Cree sus encuestas',
+  'Home' => 'Inicio',
+  'Poll' => 'Encuesta',
+  'Save' => 'Guardar',
+  'Cancel' => 'Cancelar',
+  'Add' => 'Añadir',
+  'Remove' => 'Borrar',
+  'Validate' => 'Validar',
+  'Edit' => 'Cambio',
+  'Next' => 'Seguir',
+  'Back' => 'Volver',
+  'Close' => 'Cerrar',
+  'Your name' => 'Su nombre',
+  'Your email address' => 'Su dirección electrónica ',
+  '(in the format name@mail.com)' => '(en el formato nombre@correo.com)',
+  'Description' => 'Descripción',
+  'Back to the homepage of' => 'Retroceder al inicio de',
+  'days' => 'días',
+  'months' => 'meses',
+  'Day' => 'Día',
+  'Time' => 'Hora',
+  'with' => 'con',
+  'vote' => 'voto',
+  'votes' => 'votos',
+  'for' => 'para',
+  'Yes' => 'Si',
+  'Ifneedbe' => 'En caso de ser necesario',
+  'No' => 'No',
+  'Legend:' => 'Leyenda:',
+  'Date' => 'Fecha',
+  'Classic' => 'Clásico',
+  'Page generated in' => 'Página generada en',
+  'seconds' => 'segundos',
+  'Choice' => 'Opción',
+  'Link' => 'Enlace',
+  'Search' => 'Búsqueda',
+  'Creation date:' => 'Fecha de creación:',
+  'Caption' => 'Leyenda',
+  'ASTERISK' => '*',
+]
+
+;

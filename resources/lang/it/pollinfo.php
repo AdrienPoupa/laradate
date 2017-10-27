@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Remove the poll' => 'Eliminare il sondaggio',
+  'Remove all the comments' => 'Eliminare tutti i commenti',
+  'Remove all the votes' => 'Eliminare tutti i voti',
+  'Print' => 'Stampare',
+  'Export to CSV' => 'Esportare in CSV',
+  'Title' => 'Titolo',
+  'Edit the title' => 'Modificare il titolo',
+  'Save the new title' => 'Salvare il nuovo titolo',
+  'Cancel the title edit' => 'Annullare la modifica del titolo',
+  'Initiator of the poll' => 'Autore del sondaggio',
+  'Edit the name' => 'Modifica il nome',
+  'Save the new name' => 'Salvare il nuovo nome',
+  'Cancel the name edit' => 'Annulla il cambio di nome',
+  'Email' => 'Email',
+  'Edit the email adress' => 'Modificare l\'email',
+  'Save the email address' => 'Salvare l\'email',
+  'Cancel the email address edit' => 'Annullare la modifica dell\'email',
+  'Edit the description' => 'Modificare la descrizione',
+  'Save the description' => 'Salvare la descrizione',
+  'Cancel the description edit' => 'Annullare la modifica della descrizione',
+  'Public link of the poll' => 'Link pubblico del sondaggio',
+  'Admin link of the poll' => 'Link per amministrare il sondaggio',
+  'Expiration date' => 'Data di scadenza',
+  'Edit the expiration date' => 'Cambiare la data di scadenza',
+  'Save the new expiration date' => 'Salvare la data di scadenza',
+  'Cancel the expiration date edit' => 'Annulla il cambio di data di scadenza',
+  'Poll rules' => 'Permessi del sondaggio',
+  'Edit the poll rules' => 'Modificare i permessi del sondaggio',
+  'Votes and comments are locked' => 'I voti e i commenti sono bloccati',
+  'Save the new rules' => 'Salvare i nuovi permessi',
+  'Cancel the rules edit' => 'Annullare le modifica dei permessi',
+  'Results are hidden' => 'I risultati sono nascosti',
+  'Results are visible' => 'I risultati sono visibili',
+  'Password protected' => 'Protetto da una password',
+  'Votes protected by password' => 'Voti protetti da una password',
+  'No password' => 'Nessuna password',
+  'Remove password' => 'Eliminare la password',
+]
+
+;

@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Remove the poll' => 'Borrar la encuesta',
+  'Remove all the comments' => 'Borrar todos los comentarios',
+  'Remove all the votes' => 'Borrar todos los votos',
+  'Print' => 'Imprimir',
+  'Export to CSV' => 'Exportar en CSV',
+  'Title' => 'Título de la encuesta',
+  'Edit the title' => 'Modificar el título',
+  'Save the new title' => 'Guardar el nuevo título',
+  'Cancel the title edit' => 'Cancelar el cambio de título',
+  'Initiator of the poll' => 'Autor de la encuesta',
+  'Edit the name' => 'Modificar el autor',
+  'Save the new name' => 'Guardar el autor',
+  'Cancel the name edit' => 'Cancelar el cambio de autor',
+  'Email' => 'Correo electrónico',
+  'Edit the email adress' => 'Modificar el correo electrónico',
+  'Save the email address' => 'Guardar el correo electrónico',
+  'Cancel the email address edit' => 'Cancelar el cambio de correo electrónico',
+  'Edit the description' => 'Modificar la descripción',
+  'Save the description' => 'Guardar la descripción',
+  'Cancel the description edit' => 'Cancelar el cambio de descripción',
+  'Public link of the poll' => 'Enlace público de la encuesta',
+  'Admin link of the poll' => 'Enlace de administración de la encuesta',
+  'Expiration date' => 'Fecha de expiración',
+  'Edit the expiration date' => 'Modificar la fecha de expiración',
+  'Save the new expiration date' => 'Guardar la fecha de expiración',
+  'Cancel the expiration date edit' => 'Cancelar el cambio de fecha de expiración',
+  'Poll rules' => 'Permisos de la encuesta',
+  'Edit the poll rules' => 'Modificar los permisos de la encuesta',
+  'Votes and comments are locked' => 'Los votos y comentarios están bloqueados',
+  'Save the new rules' => 'ES_Enregistrer les nouvelles permissions',
+  'Cancel the rules edit' => 'ES_Annuler le changement de permissions',
+  'Results are hidden' => 'Los resutaldos no son visibles',
+  'Results are visible' => 'Los resultados son visibles',
+  'Password protected' => 'ES_Protégé par mot de passe',
+  'Votes protected by password' => 'ES_Votes protégés par mot de passe',
+  'No password' => 'ES_Pas de mot de passe',
+  'Remove password' => 'ES_Supprimer le mot de passe',
+]
+
+;

@@ -1,0 +1,45 @@
+<?php
+
+return 
+
+[
+  'Error!' => 'Fehler!',
+  'Forbidden!' => 'Verboten!',
+  'Enter a title' => 'Titel eingeben',
+  'Something is going wrong...' => 'Etwas geht schief...',
+  'Something is wrong with the format' => 'Mit dem Format stimmt etwas nicht',
+  'Enter an email address' => 'Geben Sie eine E-Mail Adresse ein',
+  'The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.' => 'Die Adresse ist nicht korrekt! Sie sollten eine gültige E-Mail-Adresse angeben, damit Ihnen der Link zur Umfrage zugeschickt werden kann.',
+  'No polls found' => 'Keine Umfragen gefunden',
+  'There is a problem with your choices' => 'Es gibt ein Problem mit Ihren Alternativen',
+  'You haven\'t filled the first section of the poll creation.' => 'Sie haben den ersten Teil der Umfrageerstellung nicht ausgefüllt.',
+  'Javascript is disabled on your browser. Its activation is required to create a poll.' => 'Javascript ist in Ihrem Browser deaktiviert. Um eine Umfrage zu erstellen, müssen Sie es aktivieren.',
+  'Cookies are disabled on your browser. Theirs activation is required to create a poll.' => 'Cookies werden von Ihrem Browser abgelehnt. Um eine Umfrage zu erstellen, müssen Sie sie akzeptieren.',
+  'This poll doesn\'t exist !' => 'Diese Umfrage existiert nicht!',
+  'Enter a name' => 'Geben Sie einen Namen ein',
+  'The name is invalid.' => 'Der Name ist ungültig.',
+  'The name you\'ve chosen already exist in this poll!' => 'Der von Ihnen eingegebenen Name existiert schon in dieser Umfrage',
+  'Enter a name and a comment!' => 'Geben Sie einen Namen und ein Kommentar ein!',
+  'Failed to insert the comment!' => 'Einfügen des Kommentars gescheitert!',
+  'Failed to delete the vote!' => 'Löschen der Wertung gescheitert!',
+  'laradate is not properly installed, please check the "INSTALL" to setup the database before continuing.' => 'laradate ist nicht richtig installiert. Bevor Sie fortfahren, beachten Sie bitte die Angaben zum Aufsetzen der Datenbank in "INSTALL".',
+  'Failed to save poll' => 'Speichern der Umfrage fehlgeschlagen',
+  'Update vote failed' => 'Aktualisierung der Wertung fehlgeschlagen',
+  'Adding vote failed' => 'Stimmabgabe fehlgeschlagen',
+  'You already voted' => 'Sie haben bereits abgestimmt',
+  'Poll has been updated before you vote' => 'Die Abstimmung wurde vor Ihrer Stimmabgabe aktualisiert',
+  'Comment failed' => 'Abgabe des Kommentars gescheitert',
+  'You can\'t create a poll with hidden results with the following edition option:' => 'Sie können mit der folgenden Editier-Option keine Umfrage mit versteckten Ergebnissen erzeugen:',
+  'Failed to delete column' => 'Löschen der Spalte fehlgeschlagen',
+  'The column already exists' => 'Die Spalte existiert bereits',
+  'MISSING_VALUES' => 'Fehlende Werte',
+  'CANT_CONNECT_TO_DATABASE' => 'Kann nicht mit der Datenbank verbinden',
+  'Password is empty' => 'Das Passwort ist leer.',
+  'Passwords do not match' => 'Die Passwörter stimmen nicht überein.',
+  'Poll id already used' => 'Der Bezeichner ist bereits in Verwendung',
+  'You can\'t select more than :d dates' => 'Es können nicht mehr als :d Termine ausgewählt werden',
+  'Can\'t create the config.php file in \':s\'.' => 'Kann die config.php nicht in \':s\' angelegen.',
+  'Can\'t create an empty column.' => 'Kann keine leere Spalte anlegen.',
+]
+
+;
