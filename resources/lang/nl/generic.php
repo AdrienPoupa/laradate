@@ -42,6 +42,10 @@ return
   'Creation date:' => 'Aanmaakdatum:',
   'Caption' => 'Legende',
   'ASTERISK' => '*',
+  'Welcome' => 'Welkom',
+  'Profile' => 'Profiel',
+  'Profile updated' =>	'Profiel bijgewerkt',
+  'Update' => 'Bijwerken',
 ]
 
 ;

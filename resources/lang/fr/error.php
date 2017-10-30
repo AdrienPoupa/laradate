@@ -9,7 +9,7 @@ return
   'Something is going wrong...' => 'Quelque chose ne va pas...',
   'Something is wrong with the format' => 'Quelque chose ne va pas avec le format',
   'Enter an email address' => 'Il faut saisir une adresse électronique !',
-  'The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.' => 'L\'adresse saisie n\'est pas correcte ! Il faut une adresse électronique valide (par exemple r.stallman@outlock.com) pour recevoir le lien vers le sondage.',
+  'The address is not correct! You should enter a valid email address (like r.stallman@outlook.com) in order to receive the link to your poll.' => 'L\'adresse saisie n\'est pas correcte ! Il faut une adresse électronique valide (par exemple r.stallman@outlook.com) pour recevoir le lien vers le sondage.',
   'No polls found' => 'Aucun sondage n\'a été trouvé',
   'There is a problem with your choices' => 'Il y a un problème avec vos choix',
   'You haven\'t filled the first section of the poll creation.' => 'Vous n\'avez pas renseigné la première page du sondage',

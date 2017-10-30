@@ -8,7 +8,7 @@
     <div class="panel panel-default" id="poll_search">
         <div class="panel-heading">@lang('generic.Search')</div>
         <div class="panel-body" style="display: none;">
-            <form action="" method="GET">
+            <form method="GET">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <form action="" method="POST">
+    <form method="POST">
         {{ csrf_field() }}
         @if ($poll_to_delete)
             <div class="alert alert-warning text-center">

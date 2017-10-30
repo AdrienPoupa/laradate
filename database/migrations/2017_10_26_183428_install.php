@@ -48,7 +48,7 @@ class Install extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('poll_id', 64);
-            $table->string('name', 64);
+            $table->string('name', 64)->nullable();
             $table->text('comment');
             $table->timestamp('date')->useCurrent();
         });
@@ -56,8 +56,8 @@ class Install extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->increments('id');
             $table->string('poll_id', 64);
-            $table->text('title');
-            $table->text('moments');
+            $table->text('title')->nullable();
+            $table->text('moments')->nullable();
         });
     }
 

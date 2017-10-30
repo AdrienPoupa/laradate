@@ -15,5 +15,12 @@ return [
 
     'failed'   => 'Ces identifiants ne correspondent pas à nos enregistrements',
     'throttle' => 'Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.',
+    'login'    => 'Connexion',
+    'register' => 'Enregistrement',
+    'logout'   => 'Déconnexion',
+    'remember' => 'Se souvenir de moi',
+    'forgot'   => 'Mot de passe oublié ?',
+	'passwordlink' => 'Envoyer le lien de réinitialisation',
+	'reset'    => 'Réinitialiser le mot de passe',
 
 ];

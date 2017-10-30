@@ -15,5 +15,12 @@ return [
 
     'failed'   => 'Diese Zugangsdaten wurden nicht in unserer Datenbank gefunden.',
     'throttle' => 'Zu viele Loginversuche. Versuchen Sie es bitte in :seconds Sekunden nochmal.',
+    'login'    => 'Anmelden',
+    'register' => 'Registrieren',
+    'logout'   => 'Ausloggen',
+    'remember' => 'Automatisch bei jedem Besuch anmelden',
+    'forgot'   => 'Hast du dein Passwort vergessen?',
+	'passwordlink' => 'Link zum Zurücksetzen des Passworts',
+	'reset'    => 'Passwort zurücksetzen',
 
 ];

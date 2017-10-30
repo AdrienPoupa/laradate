@@ -40,11 +40,11 @@ class CreateDatePollController extends Controller
 
         switch ($step) {
             case 1:
-                // Step 1/4 : error if $_SESSION from info_sondage are not valid
-                return view('error', [
+                // Step 1/4 : error if $_SESSION from poll info is not valid
+                return response()->view('errors.error', [
                     'title' => __('error.Error!'),
                     'error' => __('error.You haven\'t filled the first section of the poll creation.')
-                ]);
+                ], 403);
 
 
             case 2:

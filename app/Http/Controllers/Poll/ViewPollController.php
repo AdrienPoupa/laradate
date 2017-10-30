@@ -29,10 +29,9 @@ class ViewPollController extends Controller
         $poll = Poll::find($poll_id);
 
         if (!$poll) {
-            return view('error', [
-                'title' => __('error.This poll doesn\'t exist !'),
-                'error' => __('error.You haven\'t filled the first section of the poll creation.')
-            ]);
+            return response()->view('errors.error', [
+                'title' => __('error.This poll doesn\'t exist !')
+            ], 404);
         }
 
         $editedVoteUniqueId = session()->get('UserVotes')[$poll_id];

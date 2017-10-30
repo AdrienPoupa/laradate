@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('main')
-    <form name="pollform" action="" method="POST" class="form-horizontal" role="form">
+    <form name="pollform" method="POST" class="form-horizontal" role="form">
         {{ csrf_field() }}
         <div class="row">
             <div class="col-md-8 col-md-offset-2">

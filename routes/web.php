@@ -11,45 +11,59 @@
 |
 */
 
-// Authentication Routes...
+Route::get('/', 'HomeController@index')->name('home');
+
+// Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-// Registration Routes...
+// Registration
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-// Password Reset Routes...
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('create/{type}', 'Poll\CreatePollController@index')->name('create')->where(['type' => '^(date|classic)$']);
-Route::post('create/{type}', 'Poll\CreatePollController@store')->where(['type' => '^(date|classic)$']);
-
-Route::any('create/classic/2', 'Poll\CreateClassicPollController@index')->name('create-classic');
-Route::any('create/date/2', 'Poll\CreateDatePollController@index')->name('create-date');
-
-Route::get('poll/find', 'Poll\FindPollController@index');
-Route::post('poll/find', 'Poll\FindPollController@post');
-
-Route::any('poll/{poll_id}', 'Poll\ViewPollController@index')->name('view-poll')->where(['poll_id' => '^[a-zA-Z0-9-]*$']);
-Route::get('poll/{poll_id}/csv/{admin?}', 'Poll\CreatePollCsvController@index')->name('csv')->where(['poll_id' => '^[a-zA-Z0-9-]*$'])->where(['admin' => '^[a-zA-Z0-9-]{24}$']);
-Route::any('poll/{poll_id}/vote/{vote}', 'Poll\ViewPollController@index')->name('edit-vote')->where(['poll_id' => '^[a-zA-Z0-9-]*$'])->where(['vote' => '^[a-zA-Z0-9-]*$']);
-Route::post('poll/{poll_id}/send_edit_link/{editedVoteUniqueId}', 'Poll\SendLinkController@index')->name('edit-vote')->where(['poll_id' => '^[a-zA-Z0-9-]*$'])->where(['editedVoteUniqueId' => '^[a-zA-Z0-9-]*$']);
-Route::post('poll/{poll_id}/comment', 'Poll\CommentPollController@post')->name('post-comment')->where(['poll_id' => '^[a-zA-Z0-9-]*$']);
-
-Route::any('poll/{poll_id}/admin', 'Poll\ViewAdminPollController@index')->name('view-poll')->where(['poll_id' => '^[a-zA-Z0-9-]{24}$']);
-Route::any('poll/{poll_id}/admin/{action}/{parameter?}', 'Poll\ViewAdminPollController@index')->name('view-poll')->where(['poll_id' => '^[a-zA-Z0-9-]{24}$'])->where(['action' => '^[a-zA-Z0-9-_]*$'])->where(['parameter' => '^[a-zA-Z0-9-]*$']);
-
-Route::get('admin', function() {
-   return view('admin.index');
+// Password Reset.
+Route::group(['prefix' => 'password'], function () {
+    Route::get('reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('reset', 'Auth\ResetPasswordController@reset');
 });
 
-Route::any('admin/polls', 'Admin\AdminPollController@index')->name('admin-polls');
-Route::get('admin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-Route::get('admin/purge', 'Admin\AdminPurgePollController@index');
-Route::post('admin/purge', 'Admin\AdminPurgePollController@post');
+// Create a poll
+Route::group(['prefix' => 'create'], function () {
+    Route::get('{type}', 'Poll\CreatePollController@index')->name('create')->where(['type' => '^(date|classic)$']);
+    Route::post('{type}', 'Poll\CreatePollController@store')->where(['type' => '^(date|classic)$']);
+
+    Route::any('classic/2', 'Poll\CreateClassicPollController@index')->name('create-classic');
+    Route::any('date/2', 'Poll\CreateDatePollController@index')->name('create-date');
+});
+
+// Display and admin a poll
+Route::group(['prefix' => 'poll'], function () {
+    Route::get('find', 'Poll\FindPollController@index');
+    Route::post('find', 'Poll\FindPollController@post');
+
+    Route::any('{poll_id}', 'Poll\ViewPollController@index')->name('view-poll')->where(['poll_id' => config('laradate.REGEX_POLL_ROUTE')]);
+    Route::get('{poll_id}/csv/{admin?}', 'Poll\CreatePollCsvController@index')->name('csv')->where(['poll_id' => config('laradate.REGEX_POLL_ROUTE')])->where(['admin' => config('laradate.REGEX_POLL_ADMIN_ROUTE')]);
+    Route::any('{poll_id}/vote/{vote}', 'Poll\ViewPollController@index')->name('edit-vote')->where(['poll_id' => config('laradate.REGEX_POLL_ROUTE')])->where(['vote' => config('laradate.REGEX_POLL_ROUTE')]);
+    Route::post('{poll_id}/send_edit_link/{editedVoteUniqueId}', 'Poll\SendLinkController@index')->name('edit-vote')->where(['poll_id' => config('laradate.REGEX_POLL_ROUTE')])->where(['editedVoteUniqueId' => config('laradate.REGEX_POLL_ROUTE')]);
+    Route::post('{poll_id}/comment', 'Poll\CommentPollController@post')->name('post-comment')->where(['poll_id' => config('laradate.REGEX_POLL_ROUTE')]);
+
+    Route::any('{poll_id}/admin', 'Poll\ViewAdminPollController@index')->name('view-poll')->where(['poll_id' => config('laradate.REGEX_POLL_ADMIN_ROUTE')]);
+    Route::any('{poll_id}/admin/{action}/{parameter?}', 'Poll\ViewAdminPollController@index')->name('view-poll')->where(['poll_id' => config('laradate.REGEX_POLL_ADMIN_ROUTE')])->where(['action' => '^[a-zA-Z0-9-_]*$'])->where(['parameter' => config('laradate.REGEX_POLL_ROUTE')]);
+});
+
+// Admin panel
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/', function() {
+        return view('admin.index', ['title' => __('admin.Administration')]);
+    });
+    Route::any('polls', 'Admin\AdminPollController@index')->name('admin-polls');
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    Route::get('purge', 'Admin\AdminPurgePollController@index');
+    Route::post('purge', 'Admin\AdminPurgePollController@post');
+});
+
+Route::get('profile', 'ProfileController@index')->middleware('auth');
+Route::post('profile', 'ProfileController@post')->middleware('auth');

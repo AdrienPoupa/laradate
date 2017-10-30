@@ -10,7 +10,7 @@
     @if (session()->has('danger'))
         <div class="alert alert-dismissible alert-danger" role="alert">{{ session()->get('danger') }} <button type="button" class="close" data-dismiss="alert" aria-label="@lang('generic.Close')"><span aria-hidden="true">&times;</span></button></div>
     @endif
-    <form action="" method="post">
+    <form method="post">
         {{ csrf_field() }}
         <div class="row">
             <div class="col-md-6 col-md-offset-3 text-center">

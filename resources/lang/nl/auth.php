@@ -15,5 +15,12 @@ return [
 
     'failed'   => 'Deze combinatie van e-mailadres en wachtwoord is niet geldig.',
     'throttle' => 'Te veel mislukte loginpogingen. Probeer het over :seconds seconden nogmaals.',
+    'login'    => 'Zich inschrijven',
+    'register' => 'Registrati',
+    'logout'   => 'Uitloggen',
+	'remember' => 'Log me automatisch in bij ieder bezoek',
+	'forgot'   => 'Wachtwoord vergeten?',
+	'passwordlink' => 'Stuur Wachtwoord Reset Link',
+	'reset'    => 'Wachtwoord opnieuw instellen',
 
 ];

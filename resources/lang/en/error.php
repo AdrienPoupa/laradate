@@ -9,7 +9,7 @@ return
   'Something is going wrong...' => 'Something has gone wrong...',
   'Something is wrong with the format' => 'Something is wrong with the format',
   'Enter an email address' => 'Enter an email address',
-  'The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.' => 'The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.',
+  'The address is not correct! You should enter a valid email address (like r.stallman@outlook.com) in order to receive the link to your poll.' => 'The address is not correct! You should enter a valid email address (like r.stallman@outlook.com) in order to receive the link to your poll.',
   'No polls found' => 'No polls found',
   'There is a problem with your choices' => 'There is a problem with your choices',
   'You haven\'t filled the first section of the poll creation.' => 'You haven\'t filled in the first section of the poll.',

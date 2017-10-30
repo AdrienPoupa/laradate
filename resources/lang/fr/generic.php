@@ -42,6 +42,10 @@ return
   'Creation date:' => 'Date de création :',
   'Caption' => 'Légende',
   'ASTERISK' => '*',
+  'Welcome' => 'Bienvenue',
+  'Profile' => 'Profil',
+  'Profile updated' =>	'Profil mis à jour',
+  'Update' => 'Mettre à jour',
 ]
 
 ;

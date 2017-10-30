@@ -19,11 +19,11 @@ class CreateClassicPollController extends Controller
 
         // Step 1/4 : error if $_SESSION is not valid
         if (empty($form->title) || empty($form->admin_name)) {
-            
-            return view('error', [
+
+            return response()->view('errors.error', [
                 'title' => __('error.Error!'),
                 'error' => __('error.You haven\'t filled the first section of the poll creation.')
-            ]);
+            ], 403);
 
         } else {
             // Min/Max archive date

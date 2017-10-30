@@ -9,7 +9,7 @@ return
   'Something is going wrong...' => 'Er is iets foutgegaan...',
   'Something is wrong with the format' => 'Er is iets foutgegaan met het formaat',
   'Enter an email address' => 'Voer een emailadres in',
-  'The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.' => 'Het adres is niet juist! Je moet een geldig emailadres invoeren (zoals r.stallman@outlock.com) zodat je de link naar je poll kan ontvangen.',
+  'The address is not correct! You should enter a valid email address (like r.stallman@outlook.com) in order to receive the link to your poll.' => 'Het adres is niet juist! Je moet een geldig emailadres invoeren (zoals r.stallman@outlook.com) zodat je de link naar je poll kan ontvangen.',
   'No polls found' => 'Geen polls gevonden',
   'There is a problem with your choices' => 'Er is een probleem met je keuzes',
   'You haven\'t filled the first section of the poll creation.' => 'Je hebt het eerste gedeelte van de poll niet ingevuld.',

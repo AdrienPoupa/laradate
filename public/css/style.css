@@ -38,8 +38,7 @@ div.comment{
     color: grey;
 }
 
-/* Règles générales */
-
+/* General rules */
 a:focus { /* a11y */
     outline:#000 dotted 1px;
 }
@@ -83,7 +82,7 @@ header h1 {
     font-size: 70%;
 }
 
-/* Effet sur les images en page d'accueil */
+/* Effects on homepage images */
 .opacity img {
     opacity: 0.8;
 }
@@ -96,8 +95,11 @@ header h1 {
     margin-bottom:50px;
 }
 
-/* Description du sondage */
-    /* studs.php et adminpoll.php */
+.navbar {
+    margin-bottom: 0;
+}
+
+/* Poll description */
 header .lead {
     padding:10px 0;
     margin:0;
@@ -144,7 +146,7 @@ caption {
     font-size: 0.7em;
 }
 
-    /* adminpoll.php */
+/* Poll admin */
 #title-form h3 .btn-edit,
 #email-form .btn-edit,
 #description-form .btn-edit,
@@ -194,7 +196,7 @@ caption {
     font-weight: normal;
 }
 
-/* Tableau du sondage */
+/* Poll table */
 #tableContainer {
     overflow-x:auto;
     margin:5px auto;
@@ -428,7 +430,7 @@ table.results > tbody > tr:hover > td .glyphicon {
     opacity:1
 }
 
-/* create_date_poll.php */
+/* Create poll */
 #selected-days .form-group {
     margin-left:0;
     margin-right:0;
@@ -463,7 +465,7 @@ table.results > tbody > tr:hover > td .glyphicon {
     height: 33px;
 }
 
-/* create_classic_poll.php */
+/* Create classic poll */
 .md-a-img {
     text-decoration:none !important;
 }
@@ -481,7 +483,6 @@ table.results > tbody > tr:hover > td .glyphicon {
     cursor: pointer;
 }
 
-/* Studs */
 .password_request {
     padding-top: 15px;
     padding-bottom: 15px;

@@ -35,10 +35,9 @@ class ViewAdminPollController extends Controller
         $poll = Poll::where('admin_id', $admin_poll_id)->first();
 
         if (!$poll) {
-            return view('error', [
-                'title' => __('error.This poll doesn\'t exist !'),
-                'error' => __('error.This poll doesn\'t exist !')
-            ]);
+            return response()->view('errors.error', [
+                'title' => __('error.This poll doesn\'t exist !')
+            ], 404);
         }
 
         if ($request->has('back')) {

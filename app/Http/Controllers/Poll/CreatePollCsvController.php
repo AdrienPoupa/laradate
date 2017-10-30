@@ -15,10 +15,9 @@ class CreatePollCsvController extends Controller
         $poll = Poll::find($poll_id);
 
         if (!$poll || !is_null($admin) && $poll->admin_id != $admin) {
-            return view('error', [
-                'title' => __('error.This poll doesn\'t exist !'),
-                'error' => __('error.This poll doesn\'t exist !')
-            ]);
+            return response()->view('errors.error', [
+                'title' => __('error.This poll doesn\'t exist !')
+            ], 404);
         }
 
         if (is_null($admin)) {
@@ -26,10 +25,9 @@ class CreatePollCsvController extends Controller
             $resultsAreHidden = $poll->hidden;
 
             if ($resultsAreHidden || $forbiddenBecauseOfPassword) {
-                return view('error', [
-                    'title' => __('error.Forbidden!'),
-                    'error' => __('error.Forbidden!')
-                ]);
+                return response()->view('errors.error', [
+                    'title' => __('error.Forbidden!')
+                ], 403);
             }
         }
 

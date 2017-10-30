@@ -12,7 +12,7 @@
 @endsection
 
 @section('main')
-    <form name="pollform" action="" method="POST" class="form-horizontal" role="form">
+    <form name="pollform" method="POST" class="form-horizontal" role="form">
         {{ csrf_field() }}
         <div class="row" id="selected-days">
             <div class="col-md-10 col-md-offset-1">

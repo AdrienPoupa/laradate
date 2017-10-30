@@ -3,7 +3,7 @@
 
     <div class="panel panel-danger password_request alert-danger">
         <div class="col-md-6 col-md-offset-3">
-            <form action="" method="POST" class="form-inline">
+            <form method="POST" class="form-inline">
                 {{ csrf_field() }}
                 <input type="hidden" name="poll" value="{{ $poll_id }}"/>
                 <div class="form-group">

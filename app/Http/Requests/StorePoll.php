@@ -49,7 +49,7 @@ class StorePoll extends FormRequest
     {
         return [
             'title.required' =>  __('error.Enter a title'),
-            'mail.email' => __('error.The address is not correct! You should enter a valid email address (like r.stallman@outlock.com) in order to receive the link to your poll.'),
+            'mail.email' => __('error.The address is not correct! You should enter a valid email address (like r.stallman@outlook.com) in order to receive the link to your poll.'),
             'password.required_if' => __('error.Password is empty'),
             'password_repeat.same' => __('error.Passwords do not match'),
         ];
