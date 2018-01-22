@@ -81,7 +81,7 @@ class CreateClassicPollController extends Controller
                 return redirect(Utils::getPollUrl($admin_poll_id, true));
 
             } // Step 3/4 : Confirm poll creation and choose a removal date
-            else if ($request->has('fin_sondage_autre')) {
+            else if ($request->has('end_other_poll')) {
 
                 // Store choices in $_SESSION
                 if ($request->has('choices')) {
@@ -133,7 +133,7 @@ class CreateClassicPollController extends Controller
 
                 $end_date_str = utf8_encode(strftime(__('date.DATE'), $max_expiry_time)); //textual date
 
-                return view('create_classic_poll_step_3', [
+                return view('create.classic.step_3', [
                     'title' => __('step_3.Removal date and confirmation (3 on 3)'),
                     'summary' => $summary,
                     'end_date_str' => $end_date_str,
@@ -146,7 +146,7 @@ class CreateClassicPollController extends Controller
                 $choices = $form->getChoices();
                 $nb_choices = max(count($choices), 5);
 
-                return view('create_classic_poll_step_2', [
+                return view('create.classic.step_2', [
                     'title' => __('step_2_classic.Poll subjects (2 on 3)'),
                     'choices' => $choices,
                     'nb_choices' => $nb_choices,

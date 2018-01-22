@@ -68,7 +68,7 @@ class CreateDatePollController extends Controller
                 }
 
                 // Display step 2
-                return view('create_date_poll_step_2', [
+                return view('create.date.step_2', [
                     'title' => __('step_2_date.Poll dates (2 on 3)'),
                     'choices' => $form->getChoices(),
                     'error' => null,
@@ -88,7 +88,7 @@ class CreateDatePollController extends Controller
                     // Check if there are at most MAX_SLOTS_PER_POLL slots
                     if (count($days) > config('laradate.MAX_SLOTS_PER_POLL')) {
                         // Display step 2
-                        return view('create_date_poll_step_2', [
+                        return view('create.date.step_2', [
                             'title' => __('step_2_date.Poll dates (2 on 3)'),
                             'choices' => $form->getChoices(),
                             'error' =>  __('error.You can\'t select more than :d dates', ['d' => config('laradate.MAX_SLOTS_PER_POLL')]),
@@ -148,7 +148,7 @@ class CreateDatePollController extends Controller
                 $end_date_str = utf8_encode(strftime(__('date.DATE'), $max_expiry_time)); //textual date
 
 
-                return view('create_classic_poll_step_3', [
+                return view('create.classic.step_3', [
                     'title' => __('step_3.Removal date and confirmation (3 on 3)'),
                     'summary' => $summary,
                     'end_date_str' => $end_date_str,

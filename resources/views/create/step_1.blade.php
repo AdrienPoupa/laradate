@@ -21,7 +21,11 @@
                     <label for="yourname" class="col-sm-4 control-label">@lang('generic.Your name') *</label>
 
                     <div class="col-sm-8">
-                        <input id="yourname" type="text" name="name" class="form-control" value="{{ old('name') }}" />
+                        @if (!Auth::guest())
+                            <input id="yourname" type="text" name="name" class="form-control" readonly value="{{ Auth::user()->name }}" />
+                        @else
+                            <input id="yourname" type="text" name="name" class="form-control" value="{{ old('name') }}" />
+                        @endif
                     </div>
                 </div>
                 @if ($errors->has('name'))
@@ -42,7 +46,11 @@
                         </label>
 
                         <div class="col-sm-8">
-                            <input id="email" type="text" name="mail" class="form-control" value="{{ old('mail') }}" />
+                            @if (!Auth::guest())
+                                <input id="email" type="text" name="mail" class="form-control" readonly value="{{ Auth::user()->email }}" />
+                            @else
+                                <input id="email" type="text" name="mail" class="form-control" value="{{ old('mail') }}" />
+                            @endif
                         </div>
                     </div>
                     @if ($errors->has('mail'))

@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-info">
-                    <p>@lang('adminpoll.As poll administrator.you can change all the lines of this poll with this button')
+                    <p>@lang('adminpoll.As poll administrator, you can change all the lines of this poll with this button')
                         <span class="glyphicon glyphicon-pencil"></span><span
                                 class="sr-only">@lang('generic.Edit')</span>,
                         @lang('adminpoll.remove a column or a line with') <span
@@ -19,7 +19,7 @@
                                 class="glyphicon glyphicon-plus text-success"></span><span
                                 class="sr-only">@lang('adminpoll.Add a column')</span>.</p>
 
-                    <p>@lang('adminpoll.Finally, you can change the informations of this poll like the title.the comments or your email address.')</p>
+                    <p>@lang('adminpoll.Finally, you can change the informations of this poll like the title, the comments or your email address.')</p>
 
                     <p aria-hidden="true"><strong>@lang('generic.Legend:')</strong> <span
                                 class="glyphicon glyphicon-ok"></span> = @lang('generic.Yes'), <b>(<span

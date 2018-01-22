@@ -39,7 +39,7 @@
             <tr>
                 <th role="presentation"></th>
                 @foreach ($slots as $id=>$slot)
-                    <th class="bg-info" id="C{{ $id }}" title="{{ $slot->title }}">{{ $slot->title }}</th>
+                    <th class="bg-info" id="C{{ $id }}" title="{{ \App\Utils::markdown($slot->title, true) }}">{!! \App\Utils::markdown($slot->title, false) !!}</th>
                 @endforeach
                 <th></th>
             </tr>

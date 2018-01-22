@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-8 text-right">
                     <a class="btn btn-default" href="{{  url('/create/classic') }}" title="@lang('step_2.Back to step 1')">@lang('generic.Back')</a>
-                    <button name="fin_sondage_autre" value="@lang('generic.Next')" type="submit" class="btn btn-success disabled" title="@lang('step_2.Go to step 3')">@lang('generic.Next')</button>
+                    <button name="end_other_poll" value="@lang('generic.Next')" type="submit" class="btn btn-success disabled" title="@lang('step_2.Go to step 3')">@lang('generic.Next')</button>
                 </div>
             </div>
         </div>

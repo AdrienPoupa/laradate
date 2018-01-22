@@ -48,7 +48,7 @@ class CreatePollController extends Controller
     {
         $useRemoteUser = config('laradate.USE_REMOTE_USER') && isset($_SERVER['REMOTE_USER']);
 
-        return view('create_poll', [
+        return view('create.step_1', [
             'title' => __('step_1.Poll creation (1 on 3)'),
             'useRemoteUser' => $useRemoteUser,
             'use_smtp' => config('laradate.use_smtp'),

@@ -4,7 +4,7 @@
     <script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/Chart.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/Chart.StackedBar.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/app/studs.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/app/common.js') }}" type="text/javascript"></script>
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
 @endsection
 

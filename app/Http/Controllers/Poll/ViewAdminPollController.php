@@ -380,7 +380,7 @@ class ViewAdminPollController extends Controller
     }
     
     private function exitDisplayingAddColumn($poll, $admin_poll_id) {
-        return view('add_column', [
+        return view('admin.add_column', [
             'poll_id' => $poll->id,
             'admin_poll_id' => $admin_poll_id,
             'format' => $poll->format,

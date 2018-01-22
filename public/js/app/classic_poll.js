@@ -27,10 +27,10 @@
             }
         });
         if (nb_filled_choices >= 1) {
-            $('button[name="fin_sondage_autre"]').removeClass('disabled');
+            $('button[name="end_other_poll"]').removeClass('disabled');
             return true;
         } else {
-            $('button[name="fin_sondage_autre"]').addClass('disabled');
+            $('button[name="end_other_poll"]').addClass('disabled');
             return false;
         }
     };
