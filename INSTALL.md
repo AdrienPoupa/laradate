@@ -12,3 +12,5 @@
 1. Prepare the database: `php artisan migrate`
 1. Fill /app/config/laradate.php with your information
 1. Enjoy
+
+You can login using the e-mail address you have set in /app/config/laradate.php as password. It is obviously extremely recommended to change your password to something more secure.

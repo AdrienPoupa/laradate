@@ -1,6 +1,8 @@
 # Laradate
 
-Laradate is a fork of [Framadate](https://framagit.org/framasoft/framadate/) made using Laravel.
+[Laradate](https://laradate.xyz) is a fork of [Framadate](https://framagit.org/framasoft/framadate/) made using Laravel.
+
+[Online demo](https://laradate.xyz)
 
 Author
 * Adrien Poupa <adrien@poupa.fr>

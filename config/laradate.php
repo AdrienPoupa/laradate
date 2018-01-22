@@ -14,10 +14,10 @@ return [
     'SESSION_EDIT_LINK_TIME' => "EditLinkMail",
     
     // Database administrator email
-    'ADMIN_MAIL' => 'laradate@laradate.com',
+    'ADMIN_MAIL' => 'laradate@laradate.xyz',
     
     // Email for automatic responses (you should set it to "no-reply")
-    'NO_REPLY_MAIL' => 'no-reply@laradate.com',
+    'NO_REPLY_MAIL' => 'no-reply@laradate.xyz',
     
     // List of supported languages
     'ALLOWED_LANGUAGES' => [
