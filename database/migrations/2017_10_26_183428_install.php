@@ -24,13 +24,14 @@ class Install extends Migration
             $table->string('admin_name', 64)->nullable();
             $table->string('admin_mail', 128)->nullable();
             $table->timestamp('creation_date')->useCurrent();
-            $table->timestamp('end_date');
+            $table->timestamp('end_date')->useCurrent();
             $table->string('format', 1)->nullable();
             $table->tinyInteger('editable')->default(0);
             $table->tinyInteger('receiveNewVotes')->default(0);
             $table->tinyInteger('receiveNewComments')->default(0);
             $table->tinyInteger('results_publicly_visible')->nullable();
             $table->tinyInteger('active')->default(1);
+            $table->tinyInteger('hidden')->default(0);
             $table->string('password_hash', 255)->nullable();
             $table->primary('id');
             $table->unique('id');
