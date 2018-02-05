@@ -1,8 +1,17 @@
 {
     "name": "adrienpoupa/laradate",
-    "description": "Laradate",
-    "keywords": ["laradate", "laravel"],
-    "license": "MIT",
+    "description": "Plan a meeting or create a poll using Laradate. Doodle alternative built using Laravel, based on Framadate",
+    "keywords": ["laradate", "laravel", "doodle", "framadate", "meet", "poll", "date"],
+    "homepage": "https://github.com/AdrienPoupa/laradate",
+    "license": "CeCILL-B",
+    "authors": [
+        {
+            "name": "Adrien Poupa",
+            "email": "adrien@poupa.fr",
+            "homepage": "https://adrien.poupa.fr",
+            "role": "Developer"
+        }
+    ],
     "type": "project",
     "require": {
         "php": ">=7.0.0",
