@@ -3,7 +3,7 @@
     "description": "Plan a meeting or create a poll using Laradate. Doodle alternative built using Laravel, based on Framadate",
     "keywords": ["laradate", "laravel", "doodle", "framadate", "meet", "poll", "date"],
     "homepage": "https://github.com/AdrienPoupa/laradate",
-    "license": "CeCILL-B",
+    "license": "CECILL-B",
     "authors": [
         {
             "name": "Adrien Poupa",
