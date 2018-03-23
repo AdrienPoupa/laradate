@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Poll;
 use App\Comment;
 use App\Exceptions\AlreadyExistsException;
 use App\Exceptions\ConcurrentEditionException;
+use App\Exceptions\ConcurrentVoteException;
 use App\Http\Controllers\Controller;
 use App\Mail\SendPollNotification;
 use App\Message;
@@ -123,6 +124,8 @@ class ViewPollController extends Controller
                         session()->flash('danger', __('error.You already voted'));
                     } catch (ConcurrentEditionException $cee) {
                         session()->flash('danger', __('error.Poll has been updated before you vote'));
+                    } catch (ConcurrentVoteException $cve) {
+                        session()->flash('danger', __('error.Your vote wasn\'t counted, because someone voted in the meantime and it conflicted with your choices and the poll conditions. Please retry.'));
                     }
                 }
             }

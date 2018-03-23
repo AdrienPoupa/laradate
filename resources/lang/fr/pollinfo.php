@@ -36,6 +36,7 @@ return
   'Cancel the rules edit' => 'Annuler le changement de permissions',
   'Results are hidden' => 'Les résultats sont cachés',
   'Results are visible' => 'Les résultats sont visibles',
+  'Only votes are protected' => 'Seuls les votes sont protégés',
   'Password protected' => 'Protégé par mot de passe',
   'Votes protected by password' => 'Votes protégés par mot de passe',
   'No password' => 'Pas de mot de passe',

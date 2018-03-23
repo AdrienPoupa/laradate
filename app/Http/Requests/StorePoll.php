@@ -37,6 +37,7 @@ class StorePoll extends FormRequest
             'password' => 'required_if:use_password,on|max:64',
             'password_repeat' => 'required_if:use_password,1|max:64|same:password',
             'results_publicly_visible' => 'sometimes',
+            'valueMax' => 'required_if:useValueMax,on|integer',
         ];
     }
 
@@ -52,6 +53,7 @@ class StorePoll extends FormRequest
             'mail.email' => __('error.The address is not correct! You should enter a valid email address (like r.stallman@outlook.com) in order to receive the link to your poll.'),
             'password.required_if' => __('error.Password is empty'),
             'password_repeat.same' => __('error.Passwords do not match'),
+            'valueMax.required_if' => __('error.error on valueMax'),
         ];
     }
 }

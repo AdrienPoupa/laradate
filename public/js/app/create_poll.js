@@ -55,6 +55,17 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Enable/Disable valueMax options
+     */
+    $("#useValueMax").change(function () {
+        if ($(this).prop("checked")) {
+            $("#valueMax").removeClass("hidden");
+        } else {
+            $("#valueMax").addClass("hidden");
+        }
+    });
+
     // Check cookies are enabled too
     var cookieEnabled = function () {
         var cookieEnabled = navigator.cookieEnabled;

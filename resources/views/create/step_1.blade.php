@@ -6,7 +6,7 @@
 @endsection
 
 @section('main')
-    <div class="row" style="display:none" id="form-block">
+    <div class="row" class="hide" id="form-block">
         <div class="col-md-8 col-md-offset-2">
             <form name="pollform" id="pollform" method="POST" class="form-horizontal" role="form">
                 {{ csrf_field() }}
@@ -123,7 +123,35 @@
 
                 <div class="collapse" id="optionnal">
 
-                    {{-- Poll identifier --}}
+                    {{-- Value MAX --}}
+
+                    <div class="form-group">
+                        <label for="useValueMax" class="col-sm-4 control-label">
+                            @lang('step_1.Value Max')<br/>
+                        </label>
+                        <div class="col-sm-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="useValueMax" name="useValueMax" type="checkbox" >
+                                    @lang('step_1.Limit the amount of voters per option')
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="valueMax"@if(session()->has('form') and !session()->get('form')->useValueMax) class="hidden" @endif>
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <label >
+                                <input id="valueMax" type="number" min= "0" name="valueMax">
+                                @lang('step_1.valueMax instructions')
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                {{-- Poll identifier --}}
 
                     <div class="form-group @if ($errors->has('customized_url')) has-error @endif">
                         <label for="poll_id" class="col-sm-4 control-label">
@@ -317,10 +345,10 @@
         </div>
     <noscript>
         <div class="alert alert-danger">
-            @lang('step_1.Javascript is disabled on your browser. Its activation is required to create a poll.')
+            @lang('error.Javascript is disabled on your browser. Its activation is required to create a poll.')
         </div>
     </noscript>
-    <div id="cookie-warning" class="alert alert-danger" style="display:none">
-        @lang('step_1.Cookies are disabled on your browser. Theirs activation is required to create a poll.')
+    <div id="cookie-warning" class="alert alert-danger hide">
+        @lang('error.Cookies are disabled on your browser. Theirs activation is required to create a poll.')
     </div>
 @endsection

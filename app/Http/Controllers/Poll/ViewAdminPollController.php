@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Poll;
 use App\Comment;
 use App\Exceptions\AlreadyExistsException;
 use App\Exceptions\ConcurrentEditionException;
+use App\Exceptions\ConcurrentVoteException;
 use App\Exceptions\MomentAlreadyExistsException;
 use App\Http\Controllers\Controller;
 use App\Mail\SendPollNotification;
@@ -116,6 +117,7 @@ class ViewAdminPollController extends Controller
                 $hidden = $request->has('hidden') ? $request->input('hidden') : false;
                 if ($hidden != $poll->hidden) {
                     $poll->hidden = $hidden;
+                    $poll->results_publicly_visible = false;
                     $updated = true;
                 }
             } elseif ($field == 'removePassword') {
@@ -132,7 +134,10 @@ class ViewAdminPollController extends Controller
                     $poll->password_hash =  password_hash($password, PASSWORD_DEFAULT);
                     $updated = true;
                 }
-                if ($resultsPubliclyVisible != $poll->results_publicly_visible) {
+                if ($poll->password_hash == null || $poll->hidden == true){
+                    $poll->results_publicly_visible = false;
+                }
+                if ($resultsPubliclyVisible != $poll->results_publicly_visible && $poll->password_hash != null && $poll->hidden == false) {
                     $poll->results_publicly_visible = $resultsPubliclyVisible;
                     $updated = true;
                 }
@@ -173,6 +178,8 @@ class ViewAdminPollController extends Controller
                     }
                 } catch (ConcurrentEditionException $cee) {
                     session()->flash('danger', __('error.Poll has been updated before you vote'));
+                } catch (ConcurrentVoteException $cve) {
+                    session()->flash('danger', __('error.Your vote wasn\'t counted, because someone voted in the meantime and it conflicted with your choices and the poll conditions. Please retry.'));
                 }
             }
         } elseif ($request->has('save')) { // Add a new vote
@@ -195,6 +202,8 @@ class ViewAdminPollController extends Controller
                     session()->flash('danger', __('error.You already voted'));
                 } catch (ConcurrentEditionException $cee) {
                     session()->flash('danger', __('error.Poll has been updated before you vote'));
+                } catch (ConcurrentVoteException $cve) {
+                    session()->flash('danger', __('error.Your vote wasn\'t counted, because someone voted in the meantime and it conflicted with your choices and the poll conditions. Please retry.'));
                 }
             }
         }

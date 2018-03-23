@@ -65,7 +65,8 @@
                 @if ($count == $total) {{ $count }} @else {{ $count }} / {{  $total }}@endif @lang('admin.polls in the database at this time')
             </div>
 
-            <table class="table table-bordered table-polls">
+            <div class="table-of-polls panel">
+                <table class="table table-bordered table-polls">
                 <tr align="center">
                     <th scope="col"></th>
                     <th scope="col">@lang('admin.Title')</th>
@@ -117,6 +118,7 @@
                     </tr>
                 @endforeach
             </table>
+            </div>
 
             <div class="panel-heading">
                 @lang('admin.Pages:')

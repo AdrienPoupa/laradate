@@ -2,8 +2,9 @@
 <html lang="{{ \App::getLocale() }}">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    @if (isset($title))
+@if (isset($title))
         <title>{{ $title }} - {{ config('app.name') }}</title>
     @else
         <title>{{ config('app.name') }}</title>

@@ -4,16 +4,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
  *
  * Authors of STUdS (initial project): Guilhem BORGHESI (borghesi@unistra.fr) and Raphaël DROZ
- * Authors of laradate/OpenSondage: Framasoft (https://github.com/framasoft)
- *
- * =============================
- *
- * Ce logiciel est régi par la licence CeCILL-B. Si une copie de cette licence
- * ne se trouve pas avec ce fichier vous pouvez l'obtenir sur
- * http://www.cecill.info/licences/Licence_CeCILL-B_V1-fr.txt
- *
- * Auteurs de STUdS (projet initial) : Guilhem BORGHESI (borghesi@unistra.fr) et Raphaël DROZ
- * Auteurs de laradate/OpenSondage : Framasoft (https://github.com/framasoft)
+ * Authors of OpenSondage: Framasoft (https://github.com/framasoft)
  */
 
 $(document).ready(function () {
@@ -25,7 +16,7 @@ $(document).ready(function () {
 
     // at least 1 day filled and you can submit
 
-    var submitDaysAvalaible = function () {
+    var submitDaysAvailable = function () {
         var nb_filled_days = 0;
 
         $selected_days.find('fieldset legend input').each(function () {
@@ -35,10 +26,10 @@ $(document).ready(function () {
         });
 
         if (nb_filled_days >= 1) {
-            $('button[name="hourschoice"]').removeClass('disabled');
+            $('button[name="choixheures"]').removeClass('disabled');
             return true;
         } else {
-            $('button[name="hourschoice"]').addClass('disabled');
+            $('button[name="choixheures"]').addClass('disabled');
             return false;
         }
     };
@@ -85,12 +76,12 @@ $(document).ready(function () {
         var new_day_number = getLastDayNumber(last_day) + 1;
 
         var re_id_hours = new RegExp('"d' + (new_day_number - 1) + '-h', 'g');
-        var re_name_hours = new RegExp('name="schedule' + (new_day_number - 1), 'g');
+        var re_name_hours = new RegExp('name="horaires' + (new_day_number - 1), 'g');
 
         var new_day_html = last_day.html().replace(re_id_hours, '"d' + new_day_number + '-h')
             .replace('id="day' + (new_day_number - 1) + '"', 'id="day' + new_day_number + '"')
             .replace('for="day' + (new_day_number - 1) + '"', 'for="day' + new_day_number + '"')
-            .replace(re_name_hours, 'name="schedule' + new_day_number)
+            .replace(re_name_hours, 'name="horaires' + new_day_number)
             .replace(/value="(.*?)"/g, 'value=""')
             .replace(/hours" title="(.*?)"/g, 'hours" title="" p')
             .replace('title="' + last_day_title + '"', 'title="' + last_day_title.substring(0, last_day_title.indexOf(' ')) + ' ' + (new_day_number + 1) + '"');
@@ -125,8 +116,8 @@ $(document).ready(function () {
     };
 
     // Handle form submission
-    $(document.pollform).on('submit', function (e) {
-        if (!submitDaysAvalaible()) {
+    $(document.formulaire).on('submit', function (e) {
+        if (!submitDaysAvailable()) {
             e.preventDefault();
             e.stopPropagation();
         }
@@ -151,22 +142,7 @@ $(document).ready(function () {
 
     // Button "Copy hours of the first day"
 
-    $('#copyhours').on('click', function () {
-        var first_day_hours = $selected_days.find('fieldset:eq(0) .hours').map(function () {
-            return $(this).val();
-        });
-
-        $selected_days.find('fieldset:gt(0)').each(function () {
-            for (var i = 0; i < first_day_hours.length; i++) {
-                $(this).find('.hours:eq(' + i + ')').val(first_day_hours[i]); // fill hours
-            }
-        });
-    });
-
-    // Buttons "Add an hour"
-
-    $(document).on('click', '.add-an-hour', function () {
-        var last_hour = $(this).parent('div').parent('div').prev();
+    function addHour(last_hour, add_button) {
 
         // for and id
         var di_hj = last_hour.children('.hours').attr('id').split('-');
@@ -189,16 +165,42 @@ $(document).ready(function () {
                 .replace(/value="(.*?)"/g, 'value=""') +
             '</div>';
 
-        // After 11 + button is disable
+        // After 11 + button is disabled
         if (hj < 99) {
             last_hour.after(new_hour_html);
             $('#d' + di + '-h' + (hj + 1)).focus();
-            $(this).prev('.remove-an-hour').removeClass('disabled');
-            if (hj == 98) {
-                $(this).addClass('disabled');
+            add_button.prev('.remove-an-hour').removeClass('disabled');
+            if (hj === 98) {
+                add_button.addClass('disabled');
             }
         }
+    }
 
+
+    $('#copyhours').on('click', function () {
+        var first_day_hours = $selected_days.find('fieldset:eq(0) .hours').map(function () {
+            return $(this).val();
+        });
+
+        $selected_days.find('fieldset:gt(0)').each(function () {
+
+            while($(this).find('.hours').length < first_day_hours.length){
+                var last_hour = $(this).children('div').children('div:last').prev();
+                var add_button = $(this).find('.add-an-hour');
+                addHour(last_hour, add_button);
+            }
+
+            for (var i = 0; i < first_day_hours.length; i++) {
+                $(this).find('.hours:eq(' + i + ')').val(first_day_hours[i]); // fill hours
+            }
+        });
+    });
+
+    // Buttons "Add an hour"
+
+    $(document).on('click', '.add-an-hour', function () {
+        var last_hour = $(this).parent('div').parent('div').prev();
+        addHour(last_hour, $(this));
     });
 
     // Buttons "Remove an hour"
@@ -219,7 +221,7 @@ $(document).ready(function () {
                 $(this).addClass('disabled');
             }
         }
-        submitDaysAvalaible();
+        submitDaysAvailable();
     });
 
     // Button "Add a day"
@@ -234,7 +236,7 @@ $(document).ready(function () {
         $selected_days.find('fieldset:last').remove();
 
         manageRemoveadayAndCopyhoursButtons();
-        submitDaysAvalaible();
+        submitDaysAvailable();
     });
 
     // Button "Remove the current day"
@@ -244,7 +246,7 @@ $(document).ready(function () {
             $(this).parents('fieldset').remove();
         }
         manageRemoveadayAndCopyhoursButtons();
-        submitDaysAvalaible();
+        submitDaysAvailable();
     });
 
     // Add an range of dates
@@ -276,7 +278,7 @@ $(document).ready(function () {
                 startDateField.val('');
                 endDateField.val('');
                 $('#add_days').modal('hide');
-                submitDaysAvalaible();
+                submitDaysAvailable();
 
             } else {
                 setTimeout(function () {
@@ -318,9 +320,9 @@ $(document).ready(function () {
     });
 
     $(document).on('keyup, change', '.hours, #selected-days fieldset legend input', function () {
-        submitDaysAvalaible();
+        submitDaysAvailable();
     });
-    submitDaysAvalaible();
+    submitDaysAvailable();
 
     // 2 days and you can remove a day or copy hours
 

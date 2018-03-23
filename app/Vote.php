@@ -4,6 +4,7 @@ namespace App;
 
 use App\Exceptions\AlreadyExistsException;
 use App\Exceptions\ConcurrentEditionException;
+use App\Exceptions\ConcurrentVoteException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -11,8 +12,21 @@ class Vote extends Model
 {
     public $timestamps = false;
 
+    /**
+     * @param $poll_id
+     * @param $vote_id
+     * @param $name
+     * @param $choices
+     * @param $slots_hash
+     * @return mixed
+     * @throws ConcurrentEditionException
+     * @throws ConcurrentVoteException
+     */
     public static function updateVote($poll_id, $vote_id, $name, $choices, $slots_hash) {
         $poll = Poll::find($poll_id);
+
+        // Check that no-one voted in the meantime and it conflicts the maximum votes constraint
+        self::checkMaxVotes($choices, $poll, $poll_id);
 
         // Check if slots are still the same
         self::checkThatSlotsDidntChanged($poll, $slots_hash);
@@ -26,8 +40,21 @@ class Vote extends Model
         return $vote->save();
     }
 
+    /**
+     * @param $poll_id
+     * @param $name
+     * @param $choices
+     * @param $slots_hash
+     * @return Vote
+     * @throws AlreadyExistsException
+     * @throws ConcurrentEditionException
+     * @throws ConcurrentVoteException
+     */
     public static function addVote($poll_id, $name, $choices, $slots_hash) {
         $poll = Poll::find($poll_id);
+
+        // Check that no-one voted in the meantime and it conflicts the maximum votes constraint
+        self::checkMaxVotes($choices, $poll, $poll_id);
 
         // Check if slots are still the same
         self::checkThatSlotsDidntChanged($poll, $slots_hash);
@@ -90,6 +117,29 @@ class Vote extends Model
             throw new ConcurrentEditionException();
         }
     }
+
+    /**
+     * This method checks if the votes don't conflict the maximum votes constraint
+     *
+     * @param $user_choice
+     * @param \stdClass $poll
+     * @param string $poll_id
+     * @throws ConcurrentVoteException
+     */
+    private static function checkMaxVotes($user_choice, $poll, $poll_id) {
+        $votes = Vote::where('poll_id', $poll_id)->orderBy('id')->get();
+        if (count($votes) <= 0) {
+            return;
+        }
+        $best_choices = Poll::computeBestChoices($votes);
+        foreach ($best_choices['y'] as $i => $nb_choice) {
+            // if for this option we have reached maximum value and user wants to add itself too
+            if ($poll->valueMax != null && $nb_choice >= $poll->valueMax && $user_choice[$i] === "2") {
+                throw new ConcurrentVoteException();
+            }
+        }
+    }
+
 
     public static function allSlotsByPoll($poll) {
         $slots = Slot::where('poll_id', $poll->id);

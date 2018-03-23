@@ -9,6 +9,8 @@
     @endif
 </h3>
 
+@include('part.scroll_left_right')
+
 <div id="tableContainer" class="tableContainer">
     <form action=" @if ($admin) {{ \App\Utils::getPollUrl($admin_poll_id, true) }} @else {{ \App\Utils::getPollUrl($poll_id) }} @endif" method="POST"  id="poll_form">
         {{ csrf_field() }}
@@ -51,7 +53,7 @@
                 @if ($editingVoteId === $vote->uniqId && !$expired)
 
                 <tr class="hidden-print">
-                    <td class="bg-info" style="padding:5px">
+                    <td class="bg-info btn-edit">
                         <div class="input-group input-group-sm" id="edit">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input type="hidden" name="edited_vote" value="{{ $vote->uniqId }}"/>
@@ -83,7 +85,7 @@
                                         <i class="glyphicon glyphicon-ban-circle"></i><span class="sr-only">@lang('generic.No')</span>
                                     </label>
                                 </li>
-                                <li style="display:none">
+                                <li class="hide">
                                     <input type="radio" id="n-choice-{{ $id }}" name="choices[{{ $id }}]" value="X" @if ($choice!='2' && $choice!='1' && $choice!='0') checked @endif/>
                                 </li>
                             </ul>
@@ -92,12 +94,24 @@
                         <?php $id++; ?>
                     @endforeach
 
-                    <td style="padding:5px"><button type="submit" class="btn btn-success btn-xs" name="save" value="{{ $vote->id }}" title="@lang('poll_results.Save the choices') {{ $vote->name }}">@lang('generic.Save')</button></td>
+                    <td class="btn-edit"><button type="submit" class="btn btn-success btn-xs" name="save" value="{{ $vote->id }}" title="@lang('poll_results.Save the choices') {{ $vote->name }}">@lang('generic.Save')</button></td>
                 </tr>
                 @elseif (!$hidden) {{-- Voted line --}}
                 <tr>
 
-                    <th class="bg-info">{{ $vote->name }}</th>
+                    <th class="bg-info">{{ $vote->name }}
+                        @if ($poll->active and !$expired and $accessGranted and
+                        ($poll->editable == config('laradate.EDITABLE_BY_ALL')
+                        or $admin
+                        or ($poll->editable == config('laradate.EDITABLE_BY_OWN') and $editedVoteUniqueId == $vote->uniqId)
+                        ) and $slots > 4)
+                            <span class="edit-username-left">
+                                <a href="@if ($admin) {{ \App\Utils::getPollUrl($poll->admin_id, true, $vote->uniqId) }} @else {{ \App\Utils::getPollUrl($poll->id, false, $vote->uniqId) }} @endif " class="btn btn-default btn-sm" title="@lang('poll_results.Edit the line: :s', ['s' => $vote->name])">
+                                    <i class="glyphicon glyphicon-pencil"></i><span class="sr-only">@lang('generic.Edit')</span>
+                                </a>
+                            </span>
+                        @endif
+                    </th>
 
                     <?php $id = 0; ?>
                     @foreach ($slots as $slot)
@@ -147,7 +161,7 @@
 
             @if ($poll->active && $editingVoteId === 0 && !$expired && $accessGranted)
                 <tr id="vote-form" class="hidden-print">
-                    <td class="bg-info" style="padding:5px">
+                    <td class="bg-info btn-edit">
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input type="text" id="name" name="name" class="form-control" title="@lang('generic.Your name')" placeholder="@lang('generic.Your name')" />
@@ -156,25 +170,27 @@
                     @foreach ($slots as $id=>$slot)
                         <td class="bg-info" headers="C{{ $id }}">
                             <ul class="list-unstyled choice">
-                                <li class="yes">
-                                    <input type="radio" id="y-choice-{{ $id }}" name="choices[{{ $id }}]" value="2" />
-                                    <label class="btn btn-default btn-xs" for="y-choice-{{ $id }}" title="@lang('poll_results.Vote yes for') {{ $slot->title }}">
-                                        <i class="glyphicon glyphicon-ok"></i><span class="sr-only">@lang('generic.Yes')</span>
-                                    </label>
-                                </li>
-                                <li class="ifneedbe">
-                                    <input type="radio" id="i-choice-{{ $id }}" name="choices[{{ $id }}]" value="1" />
-                                    <label class="btn btn-default btn-xs" for="i-choice-{{ $id }}" title="@lang('poll_results.Vote ifneedbe for') {{ $slot->title }}">
-                                        (<i class="glyphicon glyphicon-ok"></i>)<span class="sr-only">@lang('generic.Ifneedbe')</span>
-                                    </label>
-                                </li>
+                                @if ($poll->valueMax == NULL or isset($best_choices['y'][$i]) and $best_choices['y'][$i] < $poll->valueMax)
+                                    <li class="yes">
+                                        <input type="radio" id="y-choice-{{ $id }}" name="choices[{{ $id }}]" value="2" />
+                                        <label class="btn btn-default btn-xs" for="y-choice-{{ $id }}" title="@lang('poll_results.Vote yes for') {{ $slot->title }}">
+                                            <i class="glyphicon glyphicon-ok"></i><span class="sr-only">@lang('generic.Yes')</span>
+                                        </label>
+                                    </li>
+                                    <li class="ifneedbe">
+                                        <input type="radio" id="i-choice-{{ $id }}" name="choices[{{ $id }}]" value="1" />
+                                        <label class="btn btn-default btn-xs" for="i-choice-{{ $id }}" title="@lang('poll_results.Vote ifneedbe for') {{ $slot->title }}">
+                                            (<i class="glyphicon glyphicon-ok"></i>)<span class="sr-only">@lang('generic.Ifneedbe')</span>
+                                        </label>
+                                    </li>
+                                @endif
                                 <li class="no">
                                     <input type="radio" id="n-choice-{{ $id }}" name="choices[{{ $id }}]" value="0" />
                                     <label class="btn btn-default btn-xs startunchecked" for="n-choice-{{ $id }}" title="@lang('poll_results.Vote no for') {{ $slot->title }}">
                                         <i class="glyphicon glyphicon-ban-circle"></i><span class="sr-only">@lang('generic.No')</span>
                                     </label>
                                 </li>
-                                <li style="display:none">
+                                <li class="hide">
                                   <input type="radio" id="n-choice-{{ $id }}" name="choices[{{ $id }}]" value="X" checked/>
                                 </li>
                             </ul>
@@ -305,7 +321,7 @@
 
 
                 <?php $i = 0; ?>
-                <ul style="list-style:none">
+                <ul class="list-unstyled">
                     @foreach ($slots as $slot)
                         @if ($best_choices['y'][$i] == $max)
                             <li><strong>{{ $slot->title }}</strong></li>

@@ -25,6 +25,9 @@ return
   'Permissions' => 'Permissions',
   'Optional parameters' => 'Optional parameters',
   'Go to step 2' => 'Go to step 2',
+  'Limit the amount of voters per option' => 'Limit the amount of voters per option',
+  'valueMax instructions' => 'voters per options',
+  'Value Max' => 'Value Max'
 ]
 
 ;

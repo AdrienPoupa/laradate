@@ -21,6 +21,10 @@ body {
     margin: 15px auto 30px;
 }
 
+.hide {
+    display: none;
+}
+
 /* Commentaires */
 div.comment{
     margin-bottom: 10px;
@@ -52,14 +56,18 @@ header h1 {
     margin-top: 0;
 }
 .container {
-    padding:30px;
+    padding: 30px;
 }
 .container .jumbotron {
-    padding:20px 20px;
+    padding: 20px 20px;
     border-radius: 2px;
 }
 .container .jumbotron p {
     font-size: 1em;
+}
+.container .jumbotron .btn-group >.btn {
+    margin-bottom: 20px;
+    white-space: normal;
 }
 
 .summary h4 {
@@ -101,7 +109,7 @@ header h1 {
 
 /* Poll description */
 header .lead {
-    padding:10px 0;
+    padding: 10px 0;
     margin:0;
 }
 
@@ -113,6 +121,14 @@ header .lead {
     color:#333;
     text-decoration:none;
     border:none;
+}
+
+header form .input-group .form-control {
+    margin-bottom: 20px;
+}
+
+header form .input-group .input-group-btn {
+    vertical-align: top;
 }
 
 .jumbotron h3, .jumbotron .js-title {
@@ -181,7 +197,7 @@ caption {
 }
 
 .js-desc textarea {
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }
 
 #author-form .form-control-static {
@@ -199,7 +215,7 @@ caption {
 /* Poll table */
 #tableContainer {
     overflow-x:auto;
-    margin:5px auto;
+    margin: 5px auto;
 }
 
 table.results {
@@ -226,7 +242,7 @@ table.results tbody td {
 table.results thead th {
     text-align:center;
     border:2px solid white;
-    padding:5px;
+    padding: 5px;
     min-width:40px;
     font-size:12px;
     max-width:100px;
@@ -235,8 +251,8 @@ table.results thead th {
 }
 
 table.results thead .btn {
-    margin:0 auto;
-    display:block;
+    margin: 0 auto;
+    display: block;
 }
 
 table.results th.rbd.day,
@@ -292,6 +308,10 @@ table.results .btn-link.btn-sm {
     font-size:12px;
 }
 
+#vote-form td label {
+    padding: 1px 3px;
+}
+
 #vote-form td {
     border-top:2px solid white;
 }
@@ -319,7 +339,15 @@ table.results .btn-link.btn-sm {
 }
 
 .choice label {
-    cursor:pointer;
+    cursor: pointer;
+}
+
+td.btn-edit {
+    padding: 5px;
+}
+
+span.edit-username-left {
+    float: right;
 }
 
 .yes .btn, .ifneedbe .btn, .no .btn {
@@ -478,9 +506,23 @@ table.results > tbody > tr:hover > td .glyphicon {
     font-size: 24px;
 }
 
+@media (max-width: 767px) {
+    #formulaire .col-xs-12 {
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+}
+
 /* Admin */
 #poll_search {
     cursor: pointer;
+}
+
+.table-of-polls {
+    overflow-x: scroll;
+    margin-bottom: 0;
+    border: 0;
+    box-shadow: none;
 }
 
 .password_request {
@@ -490,4 +532,9 @@ table.results > tbody > tr:hover > td .glyphicon {
 
 #password-form .btn-cancel {
     float: right;
+}
+
+/* Buttons */
+.btn {
+    white-space: normal;
 }

@@ -24,6 +24,8 @@ class CreatePollController extends Controller
         $form->hidden = $request->input('hidden');
         $form->use_password = $request->input('use_password');
         $form->results_publicly_visible = $request->input('results_publicly_visible');
+        $form->useValueMax = $request->filled('useValueMax') ? true : false;
+        $form->valueMax = $form->useValueMax ? $request->input('valueMax') : null;
 
         // If no errors, we hash the password if needed
         if ($form->use_password) {

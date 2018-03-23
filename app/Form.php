@@ -29,6 +29,16 @@ class Form
     public $receiveNewComments;
 
     /**
+     * Value max value
+     */
+    public $valueMax;
+
+    /**
+     * Does poll use value max?
+     */
+    public $useValueMax;
+
+    /**
      * If true, only the poll maker can see the poll's results
      * @var boolean
      */
