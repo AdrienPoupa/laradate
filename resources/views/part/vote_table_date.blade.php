@@ -154,8 +154,8 @@
                     <th class="bg-info">{{ $vote->name }}
                         @if ($poll->active and !$expired and $accessGranted and
                         ($poll->editable == config('laradate.EDITABLE_BY_ALL')
-                        or $admin
-                        or ($poll->editable == config('laradate.EDITABLE_BY_OWN') and $editedVoteUniqueId == $vote->uniqId)
+                        || $admin
+                        || ($poll->editable == config('laradate.EDITABLE_BY_OWN') and $editedVoteUniqueId == $vote->uniqId)
                         ) and $slots > 4)
                             <span class="edit-username-left">
                                 <a href="@if ($admin) {{ \App\Utils::getPollUrl($poll->admin_id, true, $vote->uniqId) }} @else {{ \App\Utils::getPollUrl($poll->id, false, $vote->uniqId) }} @endif " class="btn btn-default btn-sm" title="@lang('poll_results.Edit the line: :s', ['s' => $vote->name])">
@@ -188,8 +188,8 @@
                     @if ($poll->active && !$expired && $accessGranted &&
                         (
                             $poll->editable == config('laradate.EDITABLE_BY_ALL')
-                            or $admin
-                            or ($poll->editable == config('laradate.EDITABLE_BY_OWN') && $editedVoteUniqueId == $vote->uniqId)
+                            || $admin
+                            || ($poll->editable == config('laradate.EDITABLE_BY_OWN') && $editedVoteUniqueId == $vote->uniqId)
                         )
                     )
                         <td class="hidden-print">
@@ -226,7 +226,7 @@
                         @foreach ($slot->moments as $moment)
                             <td class="bg-info" headers="M{{ $headersM[$i] }} D{{ $headersD[$i] }} H{{ $headersH[$i] }}">
                                 <ul class="list-unstyled choice">
-                                    @if ($poll->valueMax == NULL or isset($best_choices['y'][$i]) and $best_choices['y'][$i] < $poll->valueMax)
+                                    @if ($poll->valueMax == NULL || isset($best_choices['y'][$i]) && $best_choices['y'][$i] < $poll->valueMax)
                                         <li class="yes">
                                             <input type="radio" id="y-choice-{{ $i }}" name="choices[{{ $i }}]" value="2" />
                                             <label class="btn btn-default btn-xs" for="y-choice-{{ $i }}" title="@lang('poll_results.Vote yes for') {{ strftime(__('date.SHORT'), $slot->day) }} - {{ $moment }}">

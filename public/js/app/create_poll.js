@@ -58,11 +58,11 @@ $(document).ready(function () {
     /**
      * Enable/Disable valueMax options
      */
-    $("#useValueMax").change(function () {
+    $("#use_value_max").change(function () {
         if ($(this).prop("checked")) {
-            $("#valueMax").removeClass("hidden");
+            $("#value_max_options").removeClass("hidden");
         } else {
-            $("#valueMax").addClass("hidden");
+            $("#value_max_options").addClass("hidden");
         }
     });
 
@@ -73,7 +73,7 @@ $(document).ready(function () {
         // if not IE4+ nor NS6+
         if (!cookieEnabled && typeof navigator.cookieEnabled === "undefined") {
             document.cookie = "testcookie";
-            cookieEnabled = document.cookie.indexOf("testcookie") != -1;
+            cookieEnabled = document.cookie.indexOf("testcookie") !== -1;
         }
 
         return cookieEnabled;
@@ -85,6 +85,16 @@ $(document).ready(function () {
     } else {
         // Show the warning about cookies
         document.getElementById("cookie-warning").setAttribute("style", "");
+    }
+
+    if (
+        $("#use_customized_url").is(":checked") ||
+        $("#use_password").is(":checked") ||
+        $("#use_value_max").is(":checked") ||
+        $("#receiveNewVotes").is(":checked") ||
+        $("#hidden").is(":checked")
+    ) {
+        $("#optionnal").collapse();
     }
 
 });

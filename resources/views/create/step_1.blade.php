@@ -6,7 +6,7 @@
 @endsection
 
 @section('main')
-    <div class="row" class="hide" id="form-block">
+    <div class="row" id="form-block">
         <div class="col-md-8 col-md-offset-2">
             <form name="pollform" id="pollform" method="POST" class="form-horizontal" role="form">
                 {{ csrf_field() }}
@@ -24,7 +24,7 @@
                         @if (!Auth::guest())
                             <input id="yourname" type="text" name="name" class="form-control" readonly value="{{ Auth::user()->name }}" />
                         @else
-                            <input id="yourname" type="text" name="name" class="form-control" value="{{ old('name') }}" />
+                            <input id="yourname" type="text" name="name" class="form-control" value="{{ old('name') ?? session()->get('form')->admin_name }}" />
                         @endif
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             @if (!Auth::guest())
                                 <input id="email" type="text" name="mail" class="form-control" readonly value="{{ Auth::user()->email }}" />
                             @else
-                                <input id="email" type="text" name="mail" class="form-control" value="{{ old('mail') }}" />
+                                <input id="email" type="text" name="mail" class="form-control" value="{{ old('mail') ?? session()->get('form')->admin_mail }}" />
                             @endif
                         </div>
                     </div>
@@ -62,14 +62,15 @@
                             @endforeach
                         </div>
                     @endif
-
+                @else
+                    <input id="email" type="hidden" name="mail" value="nosmtp@laradate.xyz" />
                 @endif
 
                 <div class="form-group @if ($errors->has('title')) has-error @endif">
                     <label for="poll_title" class="col-sm-4 control-label">@lang('step_1.Poll title') *</label>
 
                     <div class="col-sm-8">
-                        <input id="poll_title" type="text" name="title" class="form-control" value="{{ old('title') }}"/>
+                        <input id="poll_title" type="text" name="title" class="form-control" value="{{ old('title') ?? session()->get('form')->title }}"/>
                     </div>
                 </div>
                 @if ($errors->has('title'))
@@ -88,7 +89,7 @@
                     <div class="col-sm-8">
                         <textarea id="poll_comments" name="description"
                                   class="form-control"
-                                  rows="5">{{ old('description') }}</textarea>
+                                  rows="5">{{ old('description') ?? session()->get('form')->description }}</textarea>
                     </div>
                 </div>
                 @if ($errors->has('description'))
@@ -126,29 +127,38 @@
                     {{-- Value MAX --}}
 
                     <div class="form-group">
-                        <label for="useValueMax" class="col-sm-4 control-label">
+                        <label for="use_value_max" class="col-sm-4 control-label">
                             @lang('step_1.Value Max')<br/>
                         </label>
+
                         <div class="col-sm-8">
                             <div class="checkbox">
                                 <label>
-                                    <input id="useValueMax" name="useValueMax" type="checkbox" >
+                                    <input type="checkbox" name="use_value_max" @if (old('use_value_max')) checked @endif
+                                           id="use_value_max">
                                     @lang('step_1.Limit the amount of voters per option')
                                 </label>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div id="valueMax"@if(session()->has('form') and !session()->get('form')->useValueMax) class="hidden" @endif>
-                        <div class="col-sm-offset-4 col-sm-8">
-                            <label >
-                                <input id="valueMax" type="number" min= "0" name="valueMax">
-                                @lang('step_1.valueMax instructions')
-                            </label>
+                        <div id="value_max_options" @if (!old('use_value_max')) class="hidden" @endif>
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <div class="input-group">
+                                    <input id="value_max" type="number" min="0" name="value_max" class="form-control"/>
+                                    <label for="value_max" class="input-group-addon">@lang('step_1.valueMax instructions')</label>
+                                </div>
+                            </div>
+                            @if ($errors->has('value_max'))
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->get('value_max') as $message)
+                                        <p id="poll_value_max_error">
+                                            {{ $message }}
+                                        </p>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                     </div>
-                </div>
 
 
                 {{-- Poll identifier --}}
