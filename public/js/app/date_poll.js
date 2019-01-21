@@ -26,10 +26,10 @@ $(document).ready(function () {
         });
 
         if (nb_filled_days >= 1) {
-            $('button[name="choixheures"]').removeClass('disabled');
+            $('button[name="hourschoice"]').removeClass('disabled');
             return true;
         } else {
-            $('button[name="choixheures"]').addClass('disabled');
+            $('button[name="hourschoice"]').addClass('disabled');
             return false;
         }
     };

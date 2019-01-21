@@ -152,11 +152,11 @@
                     {{-- Voted line --}}
 
                     <th class="bg-info">{{ $vote->name }}
-                        @if ($poll->active and !$expired and $accessGranted and
+                        @if ($poll->active && !$expired && $accessGranted &&
                         ($poll->editable == config('laradate.EDITABLE_BY_ALL')
                         || $admin
-                        || ($poll->editable == config('laradate.EDITABLE_BY_OWN') and $editedVoteUniqueId == $vote->uniqId)
-                        ) and $slots > 4)
+                        || ($poll->editable == config('laradate.EDITABLE_BY_OWN') && $editedVoteUniqueId == $vote->uniqId)
+                        ) && count($slots) > 4)
                             <span class="edit-username-left">
                                 <a href="@if ($admin) {{ \App\Utils::getPollUrl($poll->admin_id, true, $vote->uniqId) }} @else {{ \App\Utils::getPollUrl($poll->id, false, $vote->uniqId) }} @endif " class="btn btn-default btn-sm" title="@lang('poll_results.Edit the line: :s', ['s' => $vote->name])">
                                     <i class="glyphicon glyphicon-pencil"></i><span class="sr-only">@lang('generic.Edit')</span>
@@ -169,7 +169,7 @@
                 <?php $k = 0; ?>
                     @foreach ($slots as $slot)
                       @foreach ($slot->moments as $moment)
-                        <?php $choice=$vote->choices[$k] ?>
+                        <?php $choice = $vote->choices[$k] ?>
 
                         @if ($choice=='2')
                             <td class="bg-success text-success" headers="M{{ $headersM[$k] }} D{{  $headersD[$k] }} H{{ $k }}"><i class="glyphicon glyphicon-ok"></i><span class="sr-only">@lang('generic.Yes')</span></td>

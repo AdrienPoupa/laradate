@@ -20,7 +20,7 @@ class Install extends Migration
             $table->char('id', 16);
             $table->char('admin_id', 24);
             $table->text('title');
-            $table->text('description');
+            $table->text('description')->nullable();;
             $table->string('admin_name', 64)->nullable();
             $table->string('admin_mail', 128)->nullable();
             $table->timestamp('creation_date')->useCurrent();
@@ -32,6 +32,7 @@ class Install extends Migration
             $table->tinyInteger('results_publicly_visible')->nullable();
             $table->tinyInteger('active')->default(1);
             $table->tinyInteger('hidden')->default(0);
+            $table->tinyInteger('valueMax')->default(0);
             $table->string('password_hash', 255)->nullable();
             $table->primary('id');
             $table->unique('id');

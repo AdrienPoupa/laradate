@@ -24,7 +24,7 @@
                         @if (!Auth::guest())
                             <input id="yourname" type="text" name="name" class="form-control" readonly value="{{ Auth::user()->name }}" />
                         @else
-                            <input id="yourname" type="text" name="name" class="form-control" value="{{ old('name') ?? session()->get('form')->admin_name }}" />
+                            <input id="yourname" type="text" name="name" class="form-control" value="{{ old('name') ?? (session()->has('form') ? session()->get('form')->admin_name : '') }}" />
                         @endif
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             @if (!Auth::guest())
                                 <input id="email" type="text" name="mail" class="form-control" readonly value="{{ Auth::user()->email }}" />
                             @else
-                                <input id="email" type="text" name="mail" class="form-control" value="{{ old('mail') ?? session()->get('form')->admin_mail }}" />
+                                <input id="email" type="text" name="mail" class="form-control" value="{{ old('mail') ?? (session()->has('form') ? session()->get('form')->admin_mail : '') }}" />
                             @endif
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     <label for="poll_title" class="col-sm-4 control-label">@lang('step_1.Poll title') *</label>
 
                     <div class="col-sm-8">
-                        <input id="poll_title" type="text" name="title" class="form-control" value="{{ old('title') ?? session()->get('form')->title }}"/>
+                        <input id="poll_title" type="text" name="title" class="form-control" value="{{ old('title') ?? (session()->has('form') ? session()->get('form')->title : '') }}"/>
                     </div>
                 </div>
                 @if ($errors->has('title'))
@@ -89,7 +89,7 @@
                     <div class="col-sm-8">
                         <textarea id="poll_comments" name="description"
                                   class="form-control"
-                                  rows="5">{{ old('description') ?? session()->get('form')->description }}</textarea>
+                                  rows="5">{{ old('description') ?? (session()->has('form') ? session()->get('form')->description : '') }}</textarea>
                     </div>
                 </div>
                 @if ($errors->has('description'))
