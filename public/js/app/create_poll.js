@@ -94,7 +94,7 @@ $(document).ready(function () {
         $("#receiveNewVotes").is(":checked") ||
         $("#hidden").is(":checked")
     ) {
-        $("#optionnal").collapse();
+        $("#optional").collapse();
     }
 
 });

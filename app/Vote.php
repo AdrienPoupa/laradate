@@ -13,8 +13,8 @@ class Vote extends Model
     public $timestamps = false;
 
     /**
-     * @param $poll_id
-     * @param $vote_id
+     * @param $pollId
+     * @param $voteId
      * @param $name
      * @param $choices
      * @param $slots_hash
@@ -22,11 +22,11 @@ class Vote extends Model
      * @throws ConcurrentEditionException
      * @throws ConcurrentVoteException
      */
-    public static function updateVote($poll_id, $vote_id, $name, $choices, $slots_hash) {
-        $poll = Poll::find($poll_id);
+    public static function updateVote($pollId, $voteId, $name, $choices, $slots_hash) {
+        $poll = Poll::find($pollId);
 
         // Check that no-one voted in the meantime and it conflicts the maximum votes constraint
-        self::checkMaxVotes($choices, $poll, $poll_id);
+        self::checkMaxVotes($choices, $poll, $pollId);
 
         // Check if slots are still the same
         self::checkThatSlotsDidntChanged($poll, $slots_hash);
@@ -34,14 +34,14 @@ class Vote extends Model
         // Update vote
         $choices = implode($choices);
 
-        $vote = Vote::where('poll_id', $poll_id)->where('id', $vote_id)->first();
+        $vote = Vote::where('poll_id', $pollId)->where('id', $voteId)->first();
         $vote->name = $name;
         $vote->choices = $choices;
         return $vote->save();
     }
 
     /**
-     * @param $poll_id
+     * @param $pollId
      * @param $name
      * @param $choices
      * @param $slots_hash
@@ -50,17 +50,17 @@ class Vote extends Model
      * @throws ConcurrentEditionException
      * @throws ConcurrentVoteException
      */
-    public static function addVote($poll_id, $name, $choices, $slots_hash) {
-        $poll = Poll::find($poll_id);
+    public static function addVote($pollId, $name, $choices, $slots_hash) {
+        $poll = Poll::find($pollId);
 
         // Check that no-one voted in the meantime and it conflicts the maximum votes constraint
-        self::checkMaxVotes($choices, $poll, $poll_id);
+        self::checkMaxVotes($choices, $poll, $pollId);
 
         // Check if slots are still the same
         self::checkThatSlotsDidntChanged($poll, $slots_hash);
 
         // Check if vote already exists
-        $existsByPollIdAndName = Vote::where('poll_id', $poll_id)->where('name', $name)->first();
+        $existsByPollIdAndName = Vote::where('poll_id', $pollId)->where('name', $name)->first();
         if (!empty($existsByPollIdAndName)) {
             throw new AlreadyExistsException();
         }
@@ -70,7 +70,7 @@ class Vote extends Model
         $token = Token::getToken(16);
 
         $vote = new Vote();
-        $vote->poll_id = $poll_id;
+        $vote->poll_id = $pollId;
         $vote->name = $name;
         $vote->choices = $choices;
         $vote->uniqId = $token;
@@ -79,28 +79,28 @@ class Vote extends Model
     }
 
     /**
-     * @param $poll_id
-     * @param $insert_position
+     * @param $pollId
+     * @param $insertPosition
      * @return int
      */
-    public static function insertDefault($poll_id, $insert_position) {
+    public static function insertDefault($pollId, $insertPosition) {
         return DB::update('UPDATE `' . env('DB_TABLE_PREFIX', '') . 'votes` SET choices = CONCAT(SUBSTRING(choices, 1, ?), " ", SUBSTRING(choices, ?)) WHERE poll_id = ?', [
-            $insert_position,
-            $insert_position + 1,
-            $poll_id
+            $insertPosition,
+            $insertPosition + 1,
+            $pollId
         ]);
     }
 
     /**
      * Delete all votes made on given moment index.
      *
-     * @param $poll_id int The ID of the poll
+     * @param $pollId int The ID of the poll
      * @param $index int The index of the vote into the poll
      * @return bool|null true if action succeeded.
      */
-    public static function deleteByIndex($poll_id, $index) {
+    public static function deleteByIndex($pollId, $index) {
         return DB::update('UPDATE `' . env('DB_TABLE_PREFIX', '') . 'votes` SET choices = CONCAT(SUBSTR(choices, 1, ?), SUBSTR(choices, ?)) WHERE poll_id = ?', [
-            $index, $index + 2, $poll_id]
+            $index, $index + 2, $pollId]
         );
     }
 
@@ -108,12 +108,12 @@ class Vote extends Model
      * This method checks if the hash send by the user is the same as the computed hash.
      *
      * @param $poll /stdClass The poll
-     * @param $slots_hash string The hash sent by the user
+     * @param $slotsHash string The hash sent by the user
      * @throws ConcurrentEditionException Thrown when hashes are different
      */
-    private static function checkThatSlotsDidntChanged($poll, $slots_hash) {
+    private static function checkThatSlotsDidntChanged($poll, $slotsHash) {
         $slots = self::allSlotsByPoll($poll);
-        if ($slots_hash !== Slot::hash($slots)) {
+        if ($slotsHash !== Slot::hash($slots)) {
             throw new ConcurrentEditionException();
         }
     }
@@ -121,20 +121,20 @@ class Vote extends Model
     /**
      * This method checks if the votes don't conflict the maximum votes constraint
      *
-     * @param $user_choice
+     * @param $userChoice
      * @param \stdClass $poll
-     * @param string $poll_id
+     * @param string $pollId
      * @throws ConcurrentVoteException
      */
-    private static function checkMaxVotes($user_choice, $poll, $poll_id) {
-        $votes = Vote::where('poll_id', $poll_id)->orderBy('id')->get();
+    private static function checkMaxVotes($userChoice, $poll, $pollId) {
+        $votes = Vote::where('poll_id', $pollId)->orderBy('id')->get();
         if (count($votes) <= 0) {
             return;
         }
         $best_choices = Poll::computeBestChoices($votes);
         foreach ($best_choices['y'] as $i => $nb_choice) {
             // if for this option we have reached maximum value and user wants to add itself too
-            if ($poll->valueMax != null && $nb_choice >= $poll->valueMax && $user_choice[$i] === "2") {
+            if ($poll->value_max != null && $nb_choice >= $poll->value_max && $userChoice[$i] === 2) {
                 throw new ConcurrentVoteException();
             }
         }
@@ -157,7 +157,7 @@ class Vote extends Model
      * @return array
      */
     public static function split($votes) {
-        $splitted = array();
+        $split = array();
         foreach ($votes as $vote) {
             $obj = new \stdClass();
             $obj->id = $vote->id;
@@ -165,9 +165,9 @@ class Vote extends Model
             $obj->uniqId = $vote->uniqId;
             $obj->choices = str_split($vote->choices);
 
-            $splitted[] = $obj;
+            $split[] = $obj;
         }
 
-        return $splitted;
+        return $split;
     }
 }

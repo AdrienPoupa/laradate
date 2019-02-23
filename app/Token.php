@@ -47,10 +47,10 @@ class Token {
             openssl_random_pseudo_bytes(1, $crypto_strong); // Fake use to see if the algorithm used was "cryptographically strong"
             return self::getSecureToken($length);
         }
-        return self::getUnsecureToken($length);
+        return self::getInsecureToken($length);
     }
 
-    public static function getUnsecureToken($length) {
+    public static function getInsecureToken($length) {
         $string = '';
         mt_srand();
         for ($i = 0; $i < $length; $i++) {

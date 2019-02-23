@@ -103,19 +103,9 @@
 
                 <p>
                     @lang('3rd_section.To participate in the software development, suggest improvements or simply download it, please visit ')
-                    <a href="https://framagit.org/framasoft/laradate">@lang('3rd_section.the development site')</a>.
+                    <a href="https://github.com/AdrienPoupa/laradate">@lang('3rd_section.the development site')</a>.
                 </p>
                 <br/>
-
-                <p>@lang('3rd_section.If you want to install the software for your own use and thus increase your independence, we help you on:')</p>
-
-                <p class="text-center">
-                    <a href="http://framacloud.org/cultiver-son-jardin/installation-de-laradate/"
-                       class="btn btn-success">
-                        <span class="glyphicon glyphicon-tree-deciduous"></span>
-                        framacloud.org
-                    </a>
-                </p>
             </div>
         @endif
     </div>

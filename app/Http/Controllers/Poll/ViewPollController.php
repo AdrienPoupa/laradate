@@ -8,7 +8,6 @@ use App\Exceptions\ConcurrentEditionException;
 use App\Exceptions\ConcurrentVoteException;
 use App\Http\Controllers\Controller;
 use App\Mail\SendPollNotification;
-use App\Message;
 use App\Poll;
 use App\Slot;
 use App\Utils;
@@ -70,7 +69,7 @@ class ViewPollController extends Controller
                 $name = $request->input('name');
                 $editedVote = filter_input(INPUT_POST, 'save', FILTER_VALIDATE_INT);
                 $choices = Utils::filterArray($request->input('choices'), FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => config('laradate.CHOICE_REGEX')]]);
-                $slots_hash = Utils::isValidMd5($request->input('control'));
+                $slotsHash = Utils::isValidMd5($request->input('control'));
 
                 if (empty($editedVote)) {
                     session()->flash('danger', __('error.Something is going wrong...'));
@@ -79,7 +78,7 @@ class ViewPollController extends Controller
                 } else {
                     // Update vote
                     try {
-                        $result = Vote::updateVote($poll_id, $editedVote, $name, $choices, $slots_hash);
+                        $result = Vote::updateVote($poll_id, $editedVote, $name, $choices, $slotsHash);
                         if ($result) {
                             if ($poll->editable == config('laradate.EDITABLE_BY_OWN')) {
                                 $editedVoteUniqueId = filter_input(INPUT_POST, 'edited_vote', FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => config('laradate.POLL_REGEX')]]);
@@ -98,7 +97,7 @@ class ViewPollController extends Controller
             } elseif ($request->has('save')) { // Add a new vote
                 $name = $request->input('name');
                 $choices = Utils::filterArray($request->input('choices'), FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => config('laradate.CHOICE_REGEX')]]);
-                $slots_hash = Utils::isValidMd5($request->input('control'));
+                $slotsHash = Utils::isValidMd5($request->input('control'));
 
                 if ($name == null) {
                     session()->flash('danger', __('error.The name is invalid.'));
@@ -108,7 +107,7 @@ class ViewPollController extends Controller
                 } else {
                     // Add vote
                     try {
-                        $result = Vote::addVote($poll_id, $name, $choices, $slots_hash);
+                        $result = Vote::addVote($poll_id, $name, $choices, $slotsHash);
                         if ($result) {
                             if ($poll->editable == config('laradate.EDITABLE_BY_OWN')) {
                                 $editedVoteUniqueId = $result->uniqId;

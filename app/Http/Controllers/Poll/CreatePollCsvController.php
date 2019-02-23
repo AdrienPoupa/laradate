@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Poll;
 use App\Utils;
 use App\Vote;
-use Illuminate\Support\Facades\Response;
 
 class CreatePollCsvController extends Controller
 {
-    public function index($poll_id, $admin = null)
+    public function index($pollId, $admin = null)
     {
-        $poll = Poll::find($poll_id);
+        $poll = Poll::find($pollId);
 
         if (!$poll || !is_null($admin) && $poll->admin_id != $admin) {
             return response()->view('errors.error', [
@@ -32,22 +31,22 @@ class CreatePollCsvController extends Controller
         }
 
         $slots = Vote::allSlotsByPoll($poll);
-        $votes = Vote::where('poll_id', $poll_id)->orderBy('id')->get();
+        $votes = Vote::where('poll_id', $pollId)->orderBy('id')->get();
 
         ob_start();
 
         if ($poll->format === 'D') {
-            $titles_line = ',';
-            $moments_line = ',';
+            $titlesLine = ',';
+            $momentsLine = ',';
             foreach ($slots as $slot) {
                 $title = Utils::csvEscape(strftime(__('date.date'), $slot->title));
                 $moments = explode(',', $slot->moments);
 
-                $titles_line .= str_repeat($title . ',', count($moments));
-                $moments_line .= implode(',', array_map('\App\Utils::csvEscape', $moments)) . ',';
+                $titlesLine .= str_repeat($title . ',', count($moments));
+                $momentsLine .= implode(',', array_map('\App\Utils::csvEscape', $moments)) . ',';
             }
-            echo $titles_line . "\r\n";
-            echo $moments_line . "\r\n";
+            echo $titlesLine . "\r\n";
+            echo $momentsLine . "\r\n";
         } else {
             echo ',';
             foreach ($slots as $slot) {
@@ -71,7 +70,7 @@ class CreatePollCsvController extends Controller
                         $text = __('generic.Yes');
                         break;
                     default:
-                        $text = 'unkown';
+                        $text = 'unknown';
                 }
                 echo Utils::csvEscape($text);
                 echo ',';

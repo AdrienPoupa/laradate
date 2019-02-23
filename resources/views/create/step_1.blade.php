@@ -112,7 +112,7 @@
                     <span class="lead visible-xs-inline">
                         <i class="glyphicon glyphicon-cog" aria-hidden="true"></i>
                     </span>
-                    <a class="optionnal-parameters collapsed lead" role="button" data-toggle="collapse" href="#optionnal" aria-expanded="false" aria-controls="optionnal">
+                    <a class="optional-parameters collapsed lead" role="button" data-toggle="collapse" href="#optional" aria-expanded="false" aria-controls="optional">
                         @lang('step_1.Optional parameters')
                         <i class="caret" aria-hidden="true"></i>
                         <i class="caret caret-up" aria-hidden="true"></i>
@@ -122,7 +122,7 @@
                 <div class="clearfix"></div>
 
 
-                <div class="collapse" id="optionnal">
+                <div class="collapse" id="optional">
 
                     {{-- Value MAX --}}
 
@@ -144,7 +144,7 @@
                         <div id="value_max_options" @if (!old('use_value_max')) class="hidden" @endif>
                             <div class="col-sm-offset-4 col-sm-8">
                                 <div class="input-group">
-                                    <input id="value_max" type="number" min="0" name="value_max" class="form-control"/>
+                                    <input id="value_max" name="value_max" type="number" min="0" class="form-control"/>
                                     <label for="value_max" class="input-group-addon">@lang('step_1.valueMax instructions')</label>
                                 </div>
                             </div>

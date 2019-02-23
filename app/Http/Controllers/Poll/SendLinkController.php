@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Mail;
 
 class SendLinkController extends Controller
 {
-    public function index(Request $request, $poll_id, $editedVoteUniqueId)
+    public function index(Request $request, $pollId, $editedVoteUniqueId)
     {
         $result = false;
 
-        $poll = Poll::find($poll_id);
+        $poll = Poll::find($pollId);
 
         $validator = validator()->make($request->all(),[
             'email' => 'required|email|max:128',

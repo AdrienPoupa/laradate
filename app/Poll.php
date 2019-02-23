@@ -63,7 +63,7 @@ class Poll extends Model
         $poll->hidden = $form->hidden ? 1 : 0;
         $poll->password_hash = $form->password_hash;
         $poll->results_publicly_visible = $form->results_publicly_visible ? 1 : 0;
-        $poll->valueMax = $form->valueMax;
+        $poll->value_max = $form->useValueMax ? $form->valueMax : 0;
 
         $poll->save();
     }

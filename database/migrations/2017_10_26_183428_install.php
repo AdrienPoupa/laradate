@@ -32,7 +32,7 @@ class Install extends Migration
             $table->tinyInteger('results_publicly_visible')->nullable();
             $table->tinyInteger('active')->default(1);
             $table->tinyInteger('hidden')->default(0);
-            $table->tinyInteger('valueMax')->default(0);
+            $table->tinyInteger('value_max')->default(0);
             $table->string('password_hash', 255)->nullable();
             $table->primary('id');
             $table->unique('id');

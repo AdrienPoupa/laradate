@@ -13,10 +13,10 @@ class Slot extends Model
     /**
      * Insert a bulk of slots.
      *
-     * @param int $poll_id
+     * @param int $pollId
      * @param array $choices
      */
-    public static function insertSlots($poll_id, $choices) {
+    public static function insertSlots($pollId, $choices) {
         foreach ($choices as $choice) {
 
             // We prepared the slots (joined by comas)
@@ -33,7 +33,7 @@ class Slot extends Model
 
             $slot = new Slot();
 
-            $slot->poll_id = $poll_id;
+            $slot->poll_id = $pollId;
             $slot->title = $choice->getName();
 
             // We execute the insertion
@@ -80,7 +80,7 @@ class Slot extends Model
      * Delete a slot from a poll.
      *
      * @param object $poll The ID of the poll
-     * @param object $slot The slot informations (datetime + moment)
+     * @param object $slot The slot information (datetime + moment)
      * @return bool true if action succeeded
      */
     public static function deleteDateSlot($poll, $slot) {
@@ -131,8 +131,8 @@ class Slot extends Model
         return true;
     }
 
-    public static function deleteClassicSlot($poll, $slot_title) {
-        Log::info('DELETE_SLOT: id:' . $poll->id . ', slot:' . $slot_title);
+    public static function deleteClassicSlot($poll, $slotTitle) {
+        Log::info('DELETE_SLOT: id:' . $poll->id . ', slot:' . $slotTitle);
 
         $slots = Vote::allSlotsByPoll($poll);
 
@@ -145,7 +145,7 @@ class Slot extends Model
 
         // Search the index of the slot to delete
         foreach ($slots as $aSlot) {
-            if ($slot_title == $aSlot->title) {
+            if ($slotTitle == $aSlot->title) {
                 $indexToDelete = $index;
             }
             $index++;
@@ -153,7 +153,7 @@ class Slot extends Model
 
         // Remove votes
         Vote::deleteByIndex($poll->id, $indexToDelete);
-        Slot::where('poll_id', $poll->id)->where('title', $slot_title)->delete();
+        Slot::where('poll_id', $poll->id)->where('title', $slotTitle)->delete();
 
         return true;
     }
@@ -165,15 +165,15 @@ class Slot extends Model
      *  <li>Create a new moment if a slot already exists for the given date</li>
      * </ul>
      *
-     * @param $poll_id int The ID of the poll
+     * @param $pollId int The ID of the poll
      * @param $datetime int The datetime
-     * @param $new_moment string The moment's name
+     * @param $newMoment string The moment's name
      * @throws MomentAlreadyExistsException When the moment to add already exists in database
      */
-    public static function addDateSlot($poll_id, $datetime, $new_moment) {
-        Log::info('ADD_COLUMN: id:' . $poll_id . ', datetime:' . $datetime . ', moment:' . $new_moment);
+    public static function addDateSlot($pollId, $datetime, $newMoment) {
+        Log::info('ADD_COLUMN: id:' . $pollId . ', datetime:' . $datetime . ', moment:' . $newMoment);
 
-        $slots = Slot::where('poll_id', $poll_id)->orderBy('id')->get();
+        $slots = Slot::where('poll_id', $pollId)->orderBy('id')->get();
         $result = Slot::findInsertPosition($slots, $datetime);
 
         if ($result->slot != null) {
@@ -181,25 +181,25 @@ class Slot extends Model
             $moments = explode(',', $slot->moments);
 
             // Check if moment already exists (maybe not necessary)
-            if (in_array($new_moment, $moments)) {
+            if (in_array($newMoment, $moments)) {
                 throw new MomentAlreadyExistsException();
             }
 
             // Update found slot
-            $moments[] = $new_moment;
-            $updatedSlot = Slot::where('poll_id', $poll_id)->where('title', $datetime)->first();
+            $moments[] = $newMoment;
+            $updatedSlot = Slot::where('poll_id', $pollId)->where('title', $datetime)->first();
             $updatedSlot->moments = implode(',', $moments);
             $updatedSlot->save();
 
         } else {
             $newSlot = new Slot();
-            $newSlot->poll_id = $poll_id;
+            $newSlot->poll_id = $pollId;
             $newSlot->title = $datetime;
-            $newSlot->moments = $new_moment;
+            $newSlot->moments = $newMoment;
             $newSlot->save();
         }
 
-        Vote::insertDefault($poll_id, $result->insert);
+        Vote::insertDefault($pollId, $result->insert);
     }
 
     /**
@@ -208,14 +208,14 @@ class Slot extends Model
      *  <li>Create a new slot if no one exists for the given title</li>
      * </ul>
      *
-     * @param $poll_id int The ID of the poll
+     * @param $pollId int The ID of the poll
      * @param $title int The title
      * @throws MomentAlreadyExistsException When the moment to add already exists in database
      */
-    public static function addClassicSlot($poll_id, $title) {
-        Log::info('ADD_COLUMN: id:' . $poll_id . ', title:' . $title);
+    public static function addClassicSlot($pollId, $title) {
+        Log::info('ADD_COLUMN: id:' . $pollId . ', title:' . $title);
 
-        $slots = Slot::where('poll_id', $poll_id)->orderBy('id')->get();
+        $slots = Slot::where('poll_id', $pollId)->orderBy('id')->get();
 
         // Check if slot already exists
         $titles = array_map(function ($slot) {
@@ -228,11 +228,11 @@ class Slot extends Model
 
         // New slot
         $newSlot = new Slot();
-        $newSlot->poll_id = $poll_id;
+        $newSlot->poll_id = $pollId;
         $newSlot->title = $title;
         $newSlot->save();
         // Set default votes
-        Vote::insertDefault($poll_id, count($slots));
+        Vote::insertDefault($pollId, count($slots));
     }
 
     /**

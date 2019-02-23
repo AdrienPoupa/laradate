@@ -7,22 +7,22 @@ class Utils {
      * Function allowing to generate poll's url
      * @param   string $id The poll's id
      * @param   bool $admin True to generate an admin URL, false for a public one
-     * @param   string $vote_id (optional) The vote's unique id
+     * @param   string $voteId (optional) The vote's unique id
      * @param null $action
-     * @param null $action_value
+     * @param null $actionValue
      * @return string The poll's URL.
      */
-    public static function getPollUrl($id, $admin = false, $vote_id = '', $action = null, $action_value = null) {
+    public static function getPollUrl($id, $admin = false, $voteId = '', $action = null, $actionValue = null) {
         if ($admin === true) {
             $url = url('poll/' . $id . '/admin');
         } else {
             $url = url('poll/' . $id);
         }
-        if ($vote_id != '') {
-            $url .= '/vote/' . $vote_id . "#edit";
+        if ($voteId != '') {
+            $url .= '/vote/' . $voteId . "#edit";
         } elseif ($action != null) {
-            if ($action_value != null) {
-                $url .= '/' . $action . '/' . $action_value;
+            if ($actionValue != null) {
+                $url .= '/' . $action . '/' . $actionValue;
             } else {
                 $url .= '/' . $action;
             }

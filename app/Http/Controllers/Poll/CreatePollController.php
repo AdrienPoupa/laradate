@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Poll;
 
+use App\Form;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
-use App\Form;
 
 class CreatePollController extends Controller
 {
@@ -24,8 +24,8 @@ class CreatePollController extends Controller
         $form->hidden = $request->input('hidden');
         $form->use_password = $request->input('use_password');
         $form->results_publicly_visible = $request->input('results_publicly_visible');
-        $form->useValueMax = $request->filled('useValueMax') ? true : false;
-        $form->valueMax = $form->useValueMax ? $request->input('valueMax') : null;
+        $form->useValueMax = $request->filled('use_value_max') ? true : false;
+        $form->valueMax = $form->useValueMax ? $request->input('value_max') : 0;
 
         // If no errors, we hash the password if needed
         if ($form->use_password) {

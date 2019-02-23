@@ -2,13 +2,10 @@
 
 namespace App\Mail;
 
-use App\Poll;
 use App\Utils;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use stdClass;
 
 class SendPollNotification extends Mailable
 {

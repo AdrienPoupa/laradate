@@ -160,14 +160,14 @@ class CreateDatePollController extends Controller
                 // Step 4 : Data prepare before insert in DB
 
                 // Define expiration date
-                $enddate = filter_input(INPUT_POST, 'enddate', FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '#^[0-9]{2}/[0-9]{2}/[0-9]{4}$#']]);
+                $endDate = filter_input(INPUT_POST, 'enddate', FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '#^[0-9]{2}/[0-9]{2}/[0-9]{4}$#']]);
 
 
-                if (!empty($enddate)) {
-                    $registredate = explode('/', $enddate);
+                if (!empty($endDate)) {
+                    $registerDate = explode('/', $endDate);
 
-                    if (is_array($registredate) && count($registredate) == 3) {
-                        $time = mktime(0, 0, 0, $registredate[1], $registredate[0], $registredate[2]);
+                    if (is_array($registerDate) && count($registerDate) == 3) {
+                        $time = mktime(0, 0, 0, $registerDate[1], $registerDate[0], $registerDate[2]);
 
                         if ($time < $min_expiry_time) {
                             $form->end_date = $min_expiry_time;
@@ -186,21 +186,21 @@ class CreateDatePollController extends Controller
 
                 // Insert poll in database
                 $ids = Poll::createPoll($form);
-                $poll_id = $ids[0];
-                $admin_poll_id = $ids[1];
+                $pollId = $ids[0];
+                $adminPollId = $ids[1];
 
 
                 // Send confirmation by mail if enabled
                 if (config('laradate.use_smtp') === true) {
-                    Mail::send(new PollCreated($poll_id));
-                    Mail::send(new PollAdminCreated($admin_poll_id));
+                    Mail::send(new PollCreated($pollId));
+                    Mail::send(new PollAdminCreated($adminPollId));
                 }
 
                 // Clean Form data in $_SESSION
                 session()->forget('form');
 
                 // Redirect to poll administration
-                return redirect(Utils::getPollUrl($admin_poll_id, true));
+                return redirect(Utils::getPollUrl($adminPollId, true));
         }
     }
 }

@@ -11,18 +11,18 @@ use Illuminate\Support\Facades\Mail;
 
 class CommentPollController extends Controller
 {
-    public function post(Request $request, $poll_id)
+    public function post(Request $request, $pollId)
     {
         $result = false;
         $comments = array();
         $admin = false;
 
-        $poll = Poll::find($poll_id);
+        $poll = Poll::find($pollId);
 
         $poll_admin = $request->input('poll_admin');
 
         if ($request->has('poll_admin') && strlen($poll_admin) === 24
-            && !empty(Poll::where('admin_id', $poll_id)->first())) {
+            && !empty(Poll::where('admin_id', $pollId)->first())) {
             $admin = true;
         }
 
@@ -39,7 +39,7 @@ class CommentPollController extends Controller
             } else {
                 // Add comment
                 $newComment = new Comment();
-                $newComment->poll_id = $poll_id;
+                $newComment->poll_id = $pollId;
                 $newComment->name = $name;
                 $newComment->comment = $comment;
                 $result = $newComment->save();
@@ -50,14 +50,14 @@ class CommentPollController extends Controller
                     session()->flash('info', __('error.Comment failed'));
                 }
             }
-            $comments = Comment::where('poll_id', $poll_id)->orderBy('id')->get();
+            $comments = Comment::where('poll_id', $pollId)->orderBy('id')->get();
         }
 
         $comments_html = view('part.comments_list', [
             'comments' => $comments,
             'admin' => $admin,
             'admin_poll_id' => $poll->admin_id,
-            'poll_id' => $poll_id,
+            'poll_id' => $pollId,
             'expired' => strtotime($poll->end_date) < time()
         ])->render();
 

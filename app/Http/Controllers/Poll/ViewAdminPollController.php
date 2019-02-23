@@ -22,18 +22,19 @@ class ViewAdminPollController extends Controller
 {
     /**
      * @param Request $request
-     * @param $admin_poll_id
+     * @param $adminPollId
      * @param null|string $action
      * @param int $parameter
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @internal param int $editingVoteId
+     * @throws \Throwable
      */
-    public function index(Request $request, $admin_poll_id, $action = '', $parameter = 0)
+    public function index(Request $request, $adminPollId, $action = '', $parameter = 0)
     {
         $poll = null;
         $editingVoteId = 0;
 
-        $poll = Poll::where('admin_id', $admin_poll_id)->first();
+        $poll = Poll::where('admin_id', $adminPollId)->first();
 
         if (!$poll) {
             return response()->view('errors.error', [
@@ -42,7 +43,7 @@ class ViewAdminPollController extends Controller
         }
 
         if ($request->has('back')) {
-            return redirect(Utils::getPollUrl($admin_poll_id, true));
+            return redirect(Utils::getPollUrl($adminPollId, true));
         }
 
         if ($action == 'vote') {
@@ -102,10 +103,10 @@ class ViewAdminPollController extends Controller
                         break;
                 }
             } elseif ($field == 'expiration_date') {
-                $expiration_date = DateTime::createFromFormat(__('date.datetime_parseformat'), $request->input('expiration_date'))->setTime(0, 0, 0);
-                $expiration_date = $expiration_date->format('Y-m-d H:i:s');
-                if ($expiration_date) {
-                    $poll->end_date = $expiration_date;
+                $expirationDate = DateTime::createFromFormat(__('date.datetime_parseformat'), $request->input('expiration_date'))->setTime(0, 0, 0);
+                $expirationDate = $expirationDate->format('Y-m-d H:i:s');
+                if ($expirationDate) {
+                    $poll->end_date = $expirationDate;
                     $updated = true;
                 }
             } elseif ($field == 'name') {
@@ -161,7 +162,7 @@ class ViewAdminPollController extends Controller
             $name = $request->input('name');
             $editedVote = filter_input(INPUT_POST, 'save', FILTER_VALIDATE_INT);
             $choices = Utils::filterArray($request->input('choices'), FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => config('laradate.CHOICE_REGEX')]]);
-            $slots_hash = Utils::isValidMd5($request->input('control'));
+            $slotsHash = Utils::isValidMd5($request->input('control'));
 
             if (empty($editedVote)) {
                 session()->flash('danger', __('error.Something is going wrong...'));
@@ -170,7 +171,7 @@ class ViewAdminPollController extends Controller
             } else {
                 // Update vote
                 try {
-                    $result = Vote::updateVote($poll->id, $editedVote, $name, $choices, $slots_hash);
+                    $result = Vote::updateVote($poll->id, $editedVote, $name, $choices, $slotsHash);
                     if ($result) {
                         session()->flash('success', __('adminpoll.Vote updated'));
                     } else {
@@ -185,14 +186,14 @@ class ViewAdminPollController extends Controller
         } elseif ($request->has('save')) { // Add a new vote
             $name = $request->input('name');
             $choices = Utils::filterArray($request->input('choices'), FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => config('laradate.CHOICE_REGEX')]]);
-            $slots_hash = Utils::isValidMd5($request->input('control'));
+            $slotsHash = Utils::isValidMd5($request->input('control'));
 
             if (count($choices) != count($request->input('choices'))) {
                 session()->flash('danger', __('error.There is a problem with your choices'));
             } else {
                 // Add vote
                 try {
-                    $result = Vote::addVote($poll->id, $name, $choices, $slots_hash);
+                    $result = Vote::addVote($poll->id, $name, $choices, $slotsHash);
                     if ($result) {
                         session()->flash('success', __('adminpoll.Vote added'));
                     } else {
@@ -213,13 +214,13 @@ class ViewAdminPollController extends Controller
         // -------------------------------
 
         if ($action == 'delete_vote') {
-            $vote_id = $parameter;
-            if ($vote_id && Vote::where('poll_id', $poll->id)->where('id', $vote_id)->delete()) {
+            $voteId = $parameter;
+            if ($voteId && Vote::where('poll_id', $poll->id)->where('id', $voteId)->delete()) {
                 session()->flash('success', __('adminpoll.Vote deleted'));
             } else {
                 session()->flash('danger', __('error.Failed to delete the vote!'));
             }
-            return redirect(Utils::getPollUrl($admin_poll_id, true));
+            return redirect(Utils::getPollUrl($adminPollId, true));
         }
 
         // -------------------------------
@@ -229,7 +230,7 @@ class ViewAdminPollController extends Controller
         if ($action == 'remove_all_votes' && !$request->has('confirm_remove_all_votes')) {
             return view('confirm.delete_votes', [
                 'poll_id' => $poll->id,
-                'admin_poll_id' => $admin_poll_id,
+                'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
                 ])->render();
         }
@@ -239,7 +240,7 @@ class ViewAdminPollController extends Controller
             } else {
                 session()->flash('danger', __('error.Failed to delete all votes'));
             }
-            return redirect(Utils::getPollUrl($admin_poll_id, true));
+            return redirect(Utils::getPollUrl($adminPollId, true));
         }
 
         // -------------------------------
@@ -252,7 +253,7 @@ class ViewAdminPollController extends Controller
             } else {
                 session()->flash('danger', __('error.Failed to delete the comment'));
             }
-            return redirect(Utils::getPollUrl($admin_poll_id, true));
+            return redirect(Utils::getPollUrl($adminPollId, true));
         }
 
         // -------------------------------
@@ -262,7 +263,7 @@ class ViewAdminPollController extends Controller
         if ($action == 'remove_all_comments' && !$request->has('confirm_remove_all_comments')) {
             return view('confirm.delete_comments', [
                 'poll_id' => $poll->id,
-                'admin_poll_id' => $admin_poll_id,
+                'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
             ])->render();
         }
@@ -272,7 +273,7 @@ class ViewAdminPollController extends Controller
             } else {
                 session()->flash('danger', __('error.Failed to delete all comments'));
             }
-            return redirect(Utils::getPollUrl($admin_poll_id, true));
+            return redirect(Utils::getPollUrl($adminPollId, true));
         }
 
         // -------------------------------
@@ -282,7 +283,7 @@ class ViewAdminPollController extends Controller
         if ($action == 'delete_poll' && !$request->has('confirm_delete_poll')) {
             return view('confirm.delete_poll', [
                 'poll_id' => $poll->id,
-                'admin_poll_id' => $admin_poll_id,
+                'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
             ])->render();
         }
@@ -295,7 +296,7 @@ class ViewAdminPollController extends Controller
             }
             return view('confirm.poll_deleted', [
                 'poll_id' => $poll->id,
-                'admin_poll_id' => $admin_poll_id,
+                'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
             ])->render();
         }
@@ -324,7 +325,7 @@ class ViewAdminPollController extends Controller
             } else {
                 session()->flash('danger', __('error.Failed to delete column'));
             }
-            return redirect(Utils::getPollUrl($admin_poll_id, true));
+            return redirect(Utils::getPollUrl($adminPollId, true));
         }
 
         // -------------------------------
@@ -332,7 +333,7 @@ class ViewAdminPollController extends Controller
         // -------------------------------
 
         if ($action == 'add_column' && !$request->has('confirm_add_column')) {
-            return $this->exitDisplayingAddColumn($poll, $admin_poll_id);
+            return $this->exitDisplayingAddColumn($poll, $adminPollId);
         }
 
         if ($action == 'add_column' && $request->has('confirm_add_column')) {
@@ -340,24 +341,24 @@ class ViewAdminPollController extends Controller
                 if (($poll->format === 'D' && empty($request->input('newdate')))
                     || ($poll->format === 'A' && empty($request->input('choice')))) {
                     session()->flash('danger', __('error.Can\'t create an empty column'));
-                    return $this->exitDisplayingAddColumn($poll, $admin_poll_id);
+                    return $this->exitDisplayingAddColumn($poll, $adminPollId);
                 }
                 if ($poll->format === 'D') {
                     $date = DateTime::createFromFormat(__('date.datetime_parseformat'), $request->input('newdate'))->setTime(0, 0, 0);
                     $time = $date->getTimestamp();
-                    $newmoment = str_replace(',', '-', strip_tags($request->input('newmoment')));
-                    Slot::addDateSlot($poll->id, $time, $newmoment);
+                    $newMoment = str_replace(',', '-', strip_tags($request->input('newmoment')));
+                    Slot::addDateSlot($poll->id, $time, $newMoment);
                 } else {
-                    $newslot = str_replace(',', '-', strip_tags($request->input('choice')));
-                    Slot::addClassicSlot($poll->id, $newslot);
+                    $newSlot = str_replace(',', '-', strip_tags($request->input('choice')));
+                    Slot::addClassicSlot($poll->id, $newSlot);
                 }
 
                 session()->flash('success', __('adminpoll.Choice added'));
             } catch (MomentAlreadyExistsException $e) {
                 session()->flash('danger', __('error.The column already exists'));
-                return $this->exitDisplayingAddColumn($poll, $admin_poll_id);
+                return $this->exitDisplayingAddColumn($poll, $adminPollId);
             }
-            return redirect(Utils::getPollUrl($admin_poll_id, true));
+            return redirect(Utils::getPollUrl($adminPollId, true));
         }
 
         // Retrieve data
@@ -368,7 +369,7 @@ class ViewAdminPollController extends Controller
         // Assign data to template
         return view('poll', [
             'poll_id' => $poll->id,
-            'admin_poll_id' => $admin_poll_id,
+            'admin_poll_id' => $adminPollId,
             'poll' => $poll,
             'title' => __('generic.Poll') . ' - ' . $poll->title,
             'expired' => strtotime($poll->end_date) < time(),
