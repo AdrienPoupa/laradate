@@ -56,8 +56,8 @@ class ViewAdminPollController extends Controller
 
         if ($request->has('update_poll_info')) {
             $updated = false;
-            $field = Utils::filterAllowedValues($request->input('update_poll_info'), ['title', 'admin_mail', 'description',
-                'rules', 'expiration_date', 'name', 'hidden', 'removePassword', 'password']);
+            $field = in_array($request->input('update_poll_info'), ['title', 'admin_mail', 'description',
+                'rules', 'expiration_date', 'name', 'hidden', 'removePassword', 'password'], true) ? $request->input('update_poll_info') : null;
 
             // Update the right poll field
             if ($field == 'title') {
