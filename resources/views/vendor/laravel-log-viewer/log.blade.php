@@ -1,4 +1,4 @@
-@extends('admin.admin_page', ['title' => __('admin.Logs')])
+@extends('master', ['title' => __('admin.Logs')])
 
 @section('header')
   <!-- Bootstrap -->
@@ -41,7 +41,7 @@
   </style>
 @endsection
 
-@section('admin_main')
+@section('main')
   <br />
   <div class="container-fluid">
     <div class="row">

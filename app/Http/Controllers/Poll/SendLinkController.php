@@ -10,15 +10,14 @@ use Illuminate\Support\Facades\Mail;
 
 class SendLinkController extends Controller
 {
-    public function index(Request $request, $pollId, $editedVoteUniqueId)
+    public function index(Request $request, Poll $poll, $editedVoteUniqueId)
     {
         $result = false;
-
-        $poll = Poll::find($pollId);
 
         $validator = validator()->make($request->all(),[
             'email' => 'required|email|max:128',
         ]);
+
         if ($validator->fails()) {
             session()->flash('info', __('editLink.The email address is not correct.'));
         } else {
@@ -41,7 +40,7 @@ class SendLinkController extends Controller
             }
         }
 
-        $response = array('result' => $result, 'message' => session()->get('info'));
+        $response = ['result' => $result, 'message' => session()->get('info')];
 
         echo json_encode($response);
     }

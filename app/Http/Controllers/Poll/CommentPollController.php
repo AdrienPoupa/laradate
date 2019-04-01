@@ -11,18 +11,16 @@ use Illuminate\Support\Facades\Mail;
 
 class CommentPollController extends Controller
 {
-    public function post(Request $request, $pollId)
+    public function post(Request $request, Poll $poll)
     {
         $result = false;
-        $comments = array();
+        $comments = [];
         $admin = false;
 
-        $poll = Poll::find($pollId);
+        $pollAdmin = $request->input('poll_admin');
 
-        $poll_admin = $request->input('poll_admin');
-
-        if ($request->has('poll_admin') && strlen($poll_admin) === 24
-            && !empty(Poll::where('admin_id', $pollId)->first())) {
+        if ($request->has('poll_admin') && strlen($pollAdmin) === 24
+            && !empty(Poll::where('admin_id', $poll->id)->first())) {
             $admin = true;
         }
 
@@ -39,7 +37,7 @@ class CommentPollController extends Controller
             } else {
                 // Add comment
                 $newComment = new Comment();
-                $newComment->poll_id = $pollId;
+                $newComment->poll_id = $poll->id;
                 $newComment->name = $name;
                 $newComment->comment = $comment;
                 $result = $newComment->save();
@@ -50,7 +48,7 @@ class CommentPollController extends Controller
                     session()->flash('info', __('error.Comment failed'));
                 }
             }
-            $comments = Comment::where('poll_id', $pollId)->orderBy('id')->get();
+            $comments = Comment::where('poll_id', $poll->id)->orderBy('id')->get();
         }
 
         $comments_html = view('part.comments_list', [
@@ -59,9 +57,9 @@ class CommentPollController extends Controller
             'admin_poll_id' => $poll->admin_id,
             'poll_id' => $pollId,
             'expired' => strtotime($poll->end_date) < time()
-        ])->render();
+        ]);
 
-        $response = array('result' => $result, 'message' => session()->get('info'), 'comments' => $comments_html);
+        $response = ['result' => $result, 'message' => session()->get('info'), 'comments' => $comments_html];
 
         return json_encode($response);
     }

@@ -19,7 +19,7 @@ return
   'Actions' => 'Azioni',
   'See the poll' => 'Vedere il sondaggio',
   'Change the poll' => 'Modificare il sondaggio',
-  'Deleted the poll' => 'Cancellare il sondaggio',
+  'Delete the poll' => 'Cancellare il sondaggio',
   'Summary' => 'Sommario',
   'Success' => 'Successo',
   'Fail' => 'Fallimento',

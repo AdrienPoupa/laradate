@@ -14,7 +14,7 @@ return
   'Best choice' => 'Beste keuze',
   'Best choices' => 'Beste keuzes',
   'The best choice at this time is:' => 'De beste keuze is op dit moment:',
-  'The bests choices at this time are:' => 'De beste keuzes zijn op dit moment:',
+  'The best choices at this time are:' => 'De beste keuzes zijn op dit moment:',
   'Scroll to the left' => 'Scroll naar links',
   'Scroll to the right' => 'Scroll naar rechts',
   'polled user' => 'ondervraagde gebruiker',

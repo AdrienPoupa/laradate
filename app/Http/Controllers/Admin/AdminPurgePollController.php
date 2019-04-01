@@ -11,7 +11,7 @@ class AdminPurgePollController extends Controller
     {
         return view('admin.purge', [
             'title' => __('admin.Purge'),
-        ])->render();
+        ]);
     }
 
     public function post()

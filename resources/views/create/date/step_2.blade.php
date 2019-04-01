@@ -13,7 +13,7 @@
 
 @section('main')
     <form name="pollform" method="POST" class="form-horizontal" role="form">
-        {{ csrf_field() }}
+        @csrf
         <div class="row" id="selected-days">
             <div class="col-md-10 col-md-offset-1">
                 <h3>@lang('step_2_date.Choose the dates of your poll')</h3>

@@ -14,7 +14,7 @@ return
   'Best choice' => 'Mejor elección',
   'Best choices' => 'Mejores elecciones',
   'The best choice at this time is:' => 'La mejor elección a la fecha es:',
-  'The bests choices at this time are:' => 'Las mejores elecciones a la fecha son:',
+  'The best choices at this time are:' => 'Las mejores elecciones a la fecha son:',
   'Scroll to the left' => 'Hacer desfilar hacia la izquierda',
   'Scroll to the right' => 'Hacer desfilar hacia la derecha',
   'polled user' => 'Votante',

@@ -69,7 +69,7 @@ class CreateClassicPollController extends Controller
                 $adminPollId = $ids[1];
 
                 // Send confirmation by mail if enabled
-                if (config('laradate.use_smtp') === true) {
+                if (config('laradate.use_smtp')) {
                     Mail::send(new PollCreated($pollId));
                     Mail::send(new PollAdminCreated($adminPollId));
                 }

@@ -1,6 +1,6 @@
 <?php $admin = (isset($admin)) ? $admin : false; ?>
 
-@if ($admin) <form action="{{ \App\Utils::getPollUrl($admin_poll_id, true) }}" method="POST"> {{ csrf_field() }} @endif
+@if ($admin) <form action="{{ \App\Utils::getPollUrl($admin_poll_id, true) }}" method="POST"> @csrf @endif
     <div class="jumbotron @if ($admin) bg-danger @endif">
         <div class="row"> {{-- Title | buttons--}}
             <div id="title-form" class="col-md-7">

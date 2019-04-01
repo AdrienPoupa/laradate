@@ -6,7 +6,7 @@
 {{-- Add comment form --}}
 @if ($poll->active && !$expired && $accessGranted)
     <form action="{{ \App\Utils::getPollUrl($poll_id, false, '', 'comment') }}" method="POST" id="comment_form">
-        {{ csrf_field() }}
+        @csrf
 
         <input type="hidden" name="poll" value="{{ $poll_id }}"/>
         @if (!empty($admin_poll_id))

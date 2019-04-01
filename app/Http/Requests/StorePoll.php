@@ -26,7 +26,7 @@ class StorePoll extends FormRequest
         return [
             'title' => 'required|max:255',
             'use_customized_url' => 'sometimes',
-            'customized_url' => 'required_if:use_customized_url,on|nullable|unique:polls,id|max:64|regex:/^[a-z0-9-]*$/i',
+            'customized_url' => 'required_if:use_customized_url,on|nullable|unique:polls,id|max:64|regex:'.config('laradate.POLL_REGEX'),
             'name' => 'required|max:64',
             'mail' => 'required|email|max:128',
             'editable' => 'required|integer|between:0,2',

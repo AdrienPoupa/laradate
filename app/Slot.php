@@ -11,6 +11,15 @@ class Slot extends Model
     public $timestamps = false;
 
     /**
+     * The slot's Poll
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function poll()
+    {
+        return $this->belongsTo('App\Poll');
+    }
+
+    /**
      * Insert a bulk of slots.
      *
      * @param int $pollId

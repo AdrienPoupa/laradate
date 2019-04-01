@@ -1,4 +1,4 @@
-@extends('admin.admin_page')
+@extends('master')
 
 @section('main')
 <div class="row">

@@ -1,6 +1,6 @@
 <div id="comments_list">
     <form action="@if ($admin) {{ \App\Utils::getPollUrl($admin_poll_id, true) }} @else {{ \App\Utils::getPollUrl($poll_id) }} @endif" method="POST">
-        {{ csrf_field() }}
+        @csrf
         @if (count($comments) > 0)
             <h3>@lang('comments.Comments of polled people')</h3>
             @foreach ($comments as $comment)

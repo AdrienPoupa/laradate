@@ -9,11 +9,9 @@ use App\Vote;
 
 class CreatePollCsvController extends Controller
 {
-    public function index($pollId, $admin = null)
+    public function index(Poll $poll, $admin = null)
     {
-        $poll = Poll::find($pollId);
-
-        if (!$poll || !is_null($admin) && $poll->admin_id != $admin) {
+        if (!is_null($admin) && $poll->admin_id != $admin) {
             return response()->view('errors.error', [
                 'title' => __('error.This poll doesn\'t exist !')
             ], 404);
@@ -31,7 +29,6 @@ class CreatePollCsvController extends Controller
         }
 
         $slots = Vote::allSlotsByPoll($poll);
-        $votes = Vote::where('poll_id', $pollId)->orderBy('id')->get();
 
         ob_start();
 
@@ -55,7 +52,7 @@ class CreatePollCsvController extends Controller
             echo "\r\n";
         }
 
-        foreach ($votes as $vote) {
+        foreach ($poll->votes as $vote) {
             echo Utils::csvEscape($vote->name) . ',';
             $choices = str_split($vote->choices);
             foreach ($choices as $choice) {
@@ -86,14 +83,14 @@ class CreatePollCsvController extends Controller
         fputs($handle, $content);
         fclose($handle);
 
-        $headers = array(
+        $headers = [
             "Content-type" => "text/csv",
             "Content-Disposition" => "attachment; filename=$filename.csv",
             'Content-Length' => $filesize,
             "Pragma" => "no-cache",
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
-        );
+        ];
 
         return response()->download($filename, $filename, $headers)->deleteFileAfterSend(true);
     }

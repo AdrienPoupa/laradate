@@ -17,16 +17,14 @@ use Illuminate\Support\Facades\Mail;
 
 class ViewPollController extends Controller
 {
-    public function index(Request $request, $poll_id, $editingVoteId = 0)
+    public function index(Request $request, Poll $poll, $editingVoteId = 0)
     {
         $accessGranted = true;
         $resultPubliclyVisible = true;
-        $slots = array();
-        $votes = array();
-        $comments = array();
+        $slots = [];
+        $votes = [];
+        $comments = [];
         $editableVoteHtml = null;
-
-        $poll = Poll::find($poll_id);
 
         if (!$poll) {
             return response()->view('errors.error', [
@@ -34,7 +32,7 @@ class ViewPollController extends Controller
             ], 404);
         }
 
-        $editedVoteUniqueId = session()->get('UserVotes')[$poll_id];
+        $editedVoteUniqueId = session()->get('UserVotes')[$poll->id];
 
         if (!is_null($poll->password_hash)) {
 
@@ -78,11 +76,11 @@ class ViewPollController extends Controller
                 } else {
                     // Update vote
                     try {
-                        $result = Vote::updateVote($poll_id, $editedVote, $name, $choices, $slotsHash);
+                        $result = Vote::updateVote($poll, $editedVote, $name, $choices, $slotsHash);
                         if ($result) {
                             if ($poll->editable == config('laradate.EDITABLE_BY_OWN')) {
                                 $editedVoteUniqueId = filter_input(INPUT_POST, 'edited_vote', FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => config('laradate.POLL_REGEX')]]);
-                                $editableVoteHtml = $this->getMessageForOwnVoteEditableVote($editedVoteUniqueId, $poll_id, $name);
+                                $editableVoteHtml = $this->getMessageForOwnVoteEditableVote($editedVoteUniqueId, $poll->id, $name);
                             } else {
                                 session()->flash('success', __('poll.Update vote succeeded'));
                             }
@@ -107,11 +105,11 @@ class ViewPollController extends Controller
                 } else {
                     // Add vote
                     try {
-                        $result = Vote::addVote($poll_id, $name, $choices, $slotsHash);
+                        $result = Vote::addVote($poll, $name, $choices, $slotsHash);
                         if ($result) {
                             if ($poll->editable == config('laradate.EDITABLE_BY_OWN')) {
                                 $editedVoteUniqueId = $result->uniqId;
-                                $editableVoteHtml = $this->getMessageForOwnVoteEditableVote($editedVoteUniqueId, $poll_id, $name);
+                                $editableVoteHtml = $this->getMessageForOwnVoteEditableVote($editedVoteUniqueId, $poll->id, $name);
                             } else {
                                 session()->flash('success', __('poll.Adding the vote succeeded'));
                             }
@@ -133,13 +131,13 @@ class ViewPollController extends Controller
         // Retrieve data
         if ($resultPubliclyVisible || $accessGranted) {
             $slots = Vote::allSlotsByPoll($poll);
-            $votes = Vote::where('poll_id', $poll_id)->orderBy('id')->get();
-            $comments = Comment::where('poll_id', $poll_id)->orderBy('id')->get();
+            $votes = Vote::where('poll_id', $poll->id)->orderBy('id')->get();
+            $comments = Comment::where('poll_id', $poll->id)->orderBy('id')->get();
         }
 
         // Assign data to template
         return view('poll', [
-            'poll_id' => $poll_id,
+            'poll_id' => $poll->id,
             'poll' => $poll,
             'title' => __('generic.Poll') . ' - ' . $poll->title,
             'expired' => strtotime($poll->end_date) < time(),
@@ -159,19 +157,19 @@ class ViewPollController extends Controller
         ]);
     }
 
-    private function getMessageForOwnVoteEditableVote($editedVoteUniqueId, $poll_id, $name) {
+    private function getMessageForOwnVoteEditableVote($editedVoteUniqueId, $pollId, $name) {
         session()->put('UserVotes.'.$poll_id, $editedVoteUniqueId);
         session()->save();
-        $urlEditVote = Utils::getPollUrl($poll_id, false, $editedVoteUniqueId);
+        $urlEditVote = Utils::getPollUrl($pollId, false, $editedVoteUniqueId);
 
         $html = view('part.editable_link', [
             'message' => __('poll.Your vote has been registered successfully, but be careful: regarding this poll options, you need to keep this personal link to edit your own vote:'),
             'link' => $urlEditVote,
             'linkTitle' => __('poll_results.Edit the line: :s', ['s' => $name]),
             'includeTemplate' => config('laradate.use_smtp'),
-            'poll_id' => $poll_id,
+            'poll_id' => $pollId,
             'editedVoteUniqueId' => $editedVoteUniqueId
-        ])->render();
+        ]);
 
         return $html;
     }

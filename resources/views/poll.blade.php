@@ -23,14 +23,14 @@
 
     @else
 
-        {{-- Global informations about the current poll --}}
+        {{-- Global information about the current poll --}}
         @include('part.poll_info')
 
         {{-- Information about voting --}}
         @if ($expired)
             <div class="alert alert-danger">
-                <p>@lang('poll.The poll is expired.it will be deleted soon.')</p>
-                <p>@lang('poll.Deletion date:') {{ strftime(__('date.SHORT'), $deletion_date) }} }}</p>
+                <p>@lang('poll.The poll is expired, it will be deleted soon.')</p>
+                <p>@lang('poll.Deletion date:') {{ strftime(__('date.SHORT'), $deletion_date) }}</p>
             </div>
         @else
             @if ($admin)

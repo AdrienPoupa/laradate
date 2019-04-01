@@ -14,7 +14,7 @@ return
   'Best choice' => 'Beste Alternative',
   'Best choices' => 'Beste Alternativen',
   'The best choice at this time is:' => 'Die beste Option ist derzeit:',
-  'The bests choices at this time are:' => 'Die besten Optionen sind derzeit:',
+  'The best choices at this time are:' => 'Die besten Optionen sind derzeit:',
   'Scroll to the left' => 'Nach links scrollen',
   'Scroll to the right' => 'Nach rechts scrollen',
   'polled user' => 'Stimme',

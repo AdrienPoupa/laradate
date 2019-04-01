@@ -19,8 +19,8 @@ class CreateDatePollController extends Controller
         $form = session()->get('form');
 
         // Min/Max archive date
-        $min_expiry_time = Poll::minExpiryDate();
-        $max_expiry_time = Poll::maxExpiryDate();
+        $minExpiryDate = Poll::minExpiryDate();
+        $maxExpiryDate = Poll::maxExpiryDate();
 
         // The poll format is DATE
         if ($form->format !== 'D') {
@@ -99,7 +99,7 @@ class CreateDatePollController extends Controller
                     $form->clearChoices();
 
                     // Reorder moments to deal with suppressed dates
-                    $moments = array();
+                    $moments = [];
                     $i = 0;
                     while (count($moments) < count($days)) {
                         if ($request->has('schedule' . $i)) {
@@ -145,7 +145,7 @@ class CreateDatePollController extends Controller
                 }
                 $summary .= '</ul>';
 
-                $end_date_str = utf8_encode(strftime(__('date.DATE'), $max_expiry_time)); //textual date
+                $end_date_str = utf8_encode(strftime(__('date.DATE'), $maxExpiryDate)); //textual date
 
 
                 return view('create.classic.step_3', [
@@ -169,10 +169,10 @@ class CreateDatePollController extends Controller
                     if (is_array($registerDate) && count($registerDate) == 3) {
                         $time = mktime(0, 0, 0, $registerDate[1], $registerDate[0], $registerDate[2]);
 
-                        if ($time < $min_expiry_time) {
-                            $form->end_date = $min_expiry_time;
-                        } elseif ($max_expiry_time < $time) {
-                            $form->end_date = $max_expiry_time;
+                        if ($time < $minExpiryDate) {
+                            $form->end_date = $minExpiryDate;
+                        } elseif ($maxExpiryDate < $time) {
+                            $form->end_date = $maxExpiryDate;
                         } else {
                             $form->end_date = $time;
                         }
@@ -181,7 +181,7 @@ class CreateDatePollController extends Controller
 
                 if (empty($form->end_date)) {
                     // By default, expiration date is 6 months after last day
-                    $form->end_date = $max_expiry_time;
+                    $form->end_date = $maxExpiryDate;
                 }
 
                 // Insert poll in database

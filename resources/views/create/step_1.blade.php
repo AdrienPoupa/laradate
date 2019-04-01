@@ -9,7 +9,7 @@
     <div class="row" id="form-block">
         <div class="col-md-8 col-md-offset-2">
             <form name="pollform" id="pollform" method="POST" class="form-horizontal" role="form">
-                {{ csrf_field() }}
+                @csrf
                 <div class="alert alert-info">
                     <p>
                         @lang('step_1.You are in the poll creation section.')<br/>

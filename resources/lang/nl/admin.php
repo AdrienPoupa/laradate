@@ -19,7 +19,7 @@ return
   'Actions' => 'Acties',
   'See the poll' => 'Ga naar poll',
   'Change the poll' => 'Bewerk poll',
-  'Deleted the poll' => 'Verwijder poll',
+  'Delete the poll' => 'Verwijder poll',
   'Summary' => 'Samenvatting',
   'Success' => 'Gelukt',
   'Fail' => 'Gefaald',

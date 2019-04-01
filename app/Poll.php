@@ -2,18 +2,55 @@
 
 namespace App;
 
+use App\Events\PollDeleting;
 use App\Exceptions\AlreadyExistsException;
 use App\Exceptions\ConcurrentEditionException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class Poll extends Model
 {
+    use Notifiable;
+
+    /**
+     * Fire a PollDeleting event when deleting a poll
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'deleting' => PollDeleting::class,
+    ];
+
     public $timestamps = false;
 
     // Prevents ID incrementing and allows accessing poll->id
     public $incrementing = false;
+
+    /**
+     * Get the Comments for the Poll.
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    /**
+     * Get the Slots for the Poll.
+     */
+    public function slots()
+    {
+        return $this->hasMany('App\Slot');
+    }
+
+    /**
+     * Get the Votes for the Poll.
+     */
+    public function votes()
+    {
+        return $this->hasMany('App\Vote');
+    }
 
     /**
      * @param Form $form
@@ -23,15 +60,15 @@ class Poll extends Model
         // Generate poll IDs, loop while poll ID already exists
         if (empty($form->id)) { // User wants us to generate an id for him
             do {
-                $poll_id = self::random(16);
+                $poll_id = Token::getToken(16);
                 $exiting_poll_id = Poll::where('id', $poll_id)->first();
             } while(!empty($exiting_poll_id));
-            $admin_poll_id = $poll_id . self::random(8);
+            $admin_poll_id = $poll_id . Token::getToken(8);
 
         } else { // User has chosen the poll id
             $poll_id = $form->id;
             do {
-                $admin_poll_id = self::random(24);
+                $admin_poll_id = Token::getToken(24);
                 $existing_admin_poll_id = Poll::where('admin_id', $admin_poll_id)->first();
             } while(!empty($existing_admin_poll_id));
 
@@ -45,7 +82,6 @@ class Poll extends Model
     }
 
     private static function insertPoll($poll_id, $admin_poll_id, $form) {
-
         $poll = new Poll();
 
         $poll->id = $poll_id;
@@ -68,28 +104,6 @@ class Poll extends Model
         $poll->save();
     }
 
-    /**
-     * Delete the entire given poll.
-     *
-     * @param $poll_id int The ID of the poll
-     * @return bool true is action succeeded
-     */
-    public static function deleteEntirePoll($poll_id) {
-        $poll = Poll::find($poll_id);
-        Log::info('DELETE_POLL: id:'.$poll->id.', format:'.$poll->format.', admin:'.$poll->admin_name.', mail:'.$poll->admin_mail);
-
-        // Delete the entire poll
-        Vote::where('poll_id', $poll_id)->delete();
-        Comment::where('poll_id', $poll_id)->delete();
-        Slot::where('poll_id', $poll_id)->delete();
-
-        return $poll->delete();
-    }
-
-    public function findAllByAdminMail($mail) {
-        return $this->pollRepository->findAllByAdminMail($mail);
-    }
-
     public static function computeBestChoices($votes) {
         $result = ['y' => [0], 'inb' => [0]];
         foreach ($votes as $vote) {
@@ -109,10 +123,6 @@ class Poll extends Model
         }
 
         return $result;
-    }
-
-    private static function random($length) {
-        return Token::getToken($length);
     }
 
     /**
@@ -151,81 +161,31 @@ class Poll extends Model
     }
 
     /**
-     * Return the list of all polls.
+     * Search polls in database.
      *
-     * @param array $search Array of search : ['id'=>..., 'title'=>..., 'name'=>..., 'mail'=>...]
-     * @param int $page The page index (O = first page)
-     * @param int $limit The limit size
-     * @return array ['polls' => The {$limit} polls, 'count' => Entries found by the query, 'total' => Total count]
+     * @return array The found polls
      */
-    public static function findAllPolls($search, $page, $limit) {
-        $start = $page * $limit;
-        $polls = Poll::findAll($search, $start, $limit);
-        $count = Poll::countPolls($search);
-        $total = Poll::countPolls();
-
-        return ['polls' => $polls, 'count' => $count, 'total' => $total];
-    }
-    /**
-    * Search polls in database.
-    *
-    * @param array $search Array of search : ['id'=>..., 'title'=>..., 'name'=>..., 'mail'=>...]
-    * @param int $start The number of first entry to select
-    * @param int $limit The number of entries to find
-    * @return array The found polls
-    */
-    public static function findAll($search, $start, $limit) {
+    public static function findAdminPolls() {
         // Polls
-        $query = DB::select('
-        SELECT p.*,
-               (SELECT count(1) FROM `' . env('DB_TABLE_PREFIX', '') . 'votes` v WHERE p.id=v.poll_id) votes
-          FROM `' . env('DB_TABLE_PREFIX', '') . 'polls` p
-         WHERE (:id = "" OR p.id LIKE :id2)
-           AND (:title = "" OR p.title LIKE :title2)
-           AND (:name = "" OR p.admin_name LIKE :name2)
-           AND (:mail = "" OR p.admin_mail LIKE :mail2)
-         ORDER BY p.title ASC
-         LIMIT :start, :limit
-         ', [
-             'id' => $search['poll'] . '%',
-             'id2' => $search['poll'] . '%',
-             'title' => '%' . $search['title'] . '%',
-             'title2' => '%' . $search['title'] . '%',
-             'name' => '%' . $search['name'] . '%',
-             'name2' => '%' . $search['name'] . '%',
-             'mail' => '%' . $search['mail'] . '%',
-             'mail2' => '%' . $search['mail'] . '%',
-             'start' => $start,
-             'limit' => $limit,
-        ]);
+        $polls = Poll::with('votes')->orderBy('title', 'asc');
 
-        return $query;
-    }
+        if (request()->has('poll')) {
+            $polls = $polls->orWhere('id', 'LIKE', '%'.request()->get('poll').'%');
+        }
 
-    /**
-     * Get the total number of polls in database.
-     *
-     * @param array $search Array of search : ['id'=>..., 'title'=>..., 'name'=>...]
-     * @return int The number of polls
-     */
-    public static function countPolls($search = null) {
-        // Total count
-        $query = DB::select('
-        SELECT count(1) nb
-          FROM `' . env('DB_TABLE_PREFIX', '') . 'polls` p
-         WHERE (:id = "" OR p.id LIKE :id2)
-           AND (:title = "" OR p.title LIKE :title2)
-           AND (:name = "" OR p.admin_name LIKE :name2)
-         ORDER BY p.title ASC', [
-            'id' => $search == null ? '' : $search['poll'] . '%',
-            'id2' => $search == null ? '' : $search['poll'] . '%',
-            'title' => $search == null ? '' : '%' . $search['title'] . '%',
-            'title2' => $search == null ? '' : '%' . $search['title'] . '%',
-            'name' => $search == null ? '' : '%' . $search['name'] . '%',
-            'name2' => $search == null ? '' : '%' . $search['name'] . '%',
-        ]);
+        if (request()->get('title')) {
+            $polls = $polls->orWhere('title', 'LIKE', '%'.request()->get('title').'%');
+        }
 
-        return $query[0]->nb;
+        if (request()->get('name')) {
+            $polls = $polls->orWhere('admin_name', 'LIKE', '%'.request()->get('name').'%');
+        }
+
+        if (request()->get('mail')) {
+            $polls = $polls->orWhere('admin_mail', 'LIKE', '%'.request()->get('mail').'%');
+        }
+
+        return $polls->paginate(15);
     }
 
     /**
@@ -234,14 +194,14 @@ class Poll extends Model
      * @return bool true is action succeeded
      */
     public static function purgeOldPolls() {
-        $oldPolls = Poll::findOldPolls();
+        $oldPolls = Poll::whereRaw('DATE_ADD(`end_date`, INTERVAL ' . config('laradate.PURGE_DELAY') . ' DAY) < NOW() AND `end_date` != 0')->limit(20)->get();
         $count = count($oldPolls);
 
         if ($count > 0) {
             Log::info('EXPIRATION: Going to purge ' . $count . ' poll(s)...');
 
             foreach ($oldPolls as $poll) {
-                if (Poll::purgePollById($poll->id)) {
+                if ($poll->delete()) {
                     Log::info('EXPIRATION_SUCCESS: id: ' . $poll->id . ', title:' . $poll->title . ', format: '.$poll->format . ', admin: ' . $poll->admin_name);
                 } else {
                     Log::info('EXPIRATION_FAILED: id: ' . $poll->id . ', title:' . $poll->title . ', format: '.$poll->format . ', admin: ' . $poll->admin_name);
@@ -250,33 +210,5 @@ class Poll extends Model
         }
 
         return $count;
-    }
-
-    /**
-     * Find old polls. Limit: 20.
-     *
-     * @return array Array of old polls
-     */
-    public static function findOldPolls() {
-        $query = DB::select('SELECT * FROM `' . env('DB_TABLE_PREFIX', '') . 'polls` WHERE DATE_ADD(`end_date`, INTERVAL ' . config('laradate.PURGE_DELAY') . ' DAY) < NOW() AND `end_date` != 0 LIMIT 20');
-
-        return $query;
-    }
-
-    /**
-     * This method deletes all data about a poll.
-     *
-     * @param $poll_id int The ID of the poll
-     * @return bool true is action succeeded
-     */
-    public static function purgePollById($poll_id) {
-        $done = true;
-
-        $done &= Comment::where('poll_id', $poll_id)->delete();
-        $done &= Vote::where('poll_id', $poll_id)->delete();
-        $done &= Slot::where('poll_id', $poll_id)->delete();
-        $done &= Poll::where('poll', $poll_id)->delete();
-
-        return $done;
     }
 }

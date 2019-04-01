@@ -7,7 +7,7 @@
         <div id="form-block" class="row">
             <div class="col-md-8 col-md-offset-2">
                 <form name="pollform" id="pollform" method="POST" class="form-horizontal" role="form">
-                    {{ csrf_field() }}
+                    @csrf
                     <div class="form-group">
                         <label for="yourname" class="col-sm-4 control-label">@lang('generic.Your name')</label>
 

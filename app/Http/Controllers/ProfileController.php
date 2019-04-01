@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('profile', ['title' => __('generic.Profile')])->render();
+        return view('profile', ['title' => __('generic.Profile')]);
     }
 
     public function post(UpdateProfile $request)

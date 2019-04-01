@@ -13,7 +13,7 @@
 @section('main')
 
     <form action="{{ \App\Utils::getPollUrl($admin_poll_id, true, '', 'add_column') }}" method="POST">
-        {{ csrf_field() }}
+        @csrf
         <div class="alert alert-info text-center">
             <h2>@lang('adminpoll.Column\'s adding')</h2>
 

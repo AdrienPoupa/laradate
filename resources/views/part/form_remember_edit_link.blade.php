@@ -1,6 +1,6 @@
 <div class="well">
     <form action="{{ \App\Utils::getPollUrl($poll_id, false, '', 'send_edit_link', $editedVoteUniqueId) }}" method="POST" class="form-inline" id="send_edit_link_form">
-        {{ csrf_field() }}
+        @csrf
         <p>@lang('editLink.If you don\'t want to lose your personalized link, we can send it to your email.')</p>
         <div class="form-group">
             <label for="email" class="control-label">@lang('pollinfo.Email')</label>

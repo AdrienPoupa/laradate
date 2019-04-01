@@ -12,7 +12,7 @@
 
 @section('main')
     <form name="pollform" method="POST" class="form-horizontal" role="form">
-        {{ csrf_field() }}
+        @csrf
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="well summary">

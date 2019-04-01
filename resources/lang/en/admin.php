@@ -19,7 +19,7 @@ return
   'Actions' => 'Actions',
   'See the poll' => 'See the poll',
   'Change the poll' => 'Change the poll',
-  'Deleted the poll' => 'Deleted the poll',
+  'Delete the poll' => 'Delete the poll',
   'Summary' => 'Summary',
   'Success' => 'Success',
   'Fail' => 'Fail',

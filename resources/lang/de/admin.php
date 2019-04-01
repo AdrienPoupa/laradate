@@ -19,7 +19,7 @@ return
   'Actions' => 'Aktionen',
   'See the poll' => 'Umfrage ansehen',
   'Change the poll' => 'Umfrage ändern',
-  'Deleted the poll' => 'Umfrage gelöscht',
+  'Delete the poll' => 'Umfrage gelöscht',
   'Summary' => 'Zusammenfassung',
   'Success' => 'Erfolg',
   'Fail' => 'Gescheitert',

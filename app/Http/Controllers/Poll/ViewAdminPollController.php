@@ -171,7 +171,7 @@ class ViewAdminPollController extends Controller
             } else {
                 // Update vote
                 try {
-                    $result = Vote::updateVote($poll->id, $editedVote, $name, $choices, $slotsHash);
+                    $result = Vote::updateVote($poll, $editedVote, $name, $choices, $slotsHash);
                     if ($result) {
                         session()->flash('success', __('adminpoll.Vote updated'));
                     } else {
@@ -193,7 +193,7 @@ class ViewAdminPollController extends Controller
             } else {
                 // Add vote
                 try {
-                    $result = Vote::addVote($poll->id, $name, $choices, $slotsHash);
+                    $result = Vote::addVote($poll, $name, $choices, $slotsHash);
                     if ($result) {
                         session()->flash('success', __('adminpoll.Vote added'));
                     } else {
@@ -232,7 +232,7 @@ class ViewAdminPollController extends Controller
                 'poll_id' => $poll->id,
                 'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
-                ])->render();
+                ]);
         }
         if ($action == 'remove_all_votes' && $request->has('confirm_remove_all_votes')) {
             if (Vote::where('poll_id', $poll->id)->delete()) {
@@ -265,7 +265,7 @@ class ViewAdminPollController extends Controller
                 'poll_id' => $poll->id,
                 'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
-            ])->render();
+            ]);
         }
         if ($action == 'remove_all_comments' && $request->has('confirm_remove_all_comments')) {
             if (Comment::where('poll_id', $poll->id)->delete()) {
@@ -285,10 +285,10 @@ class ViewAdminPollController extends Controller
                 'poll_id' => $poll->id,
                 'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
-            ])->render();
+            ]);
         }
         if ($action == 'delete_poll' && $request->has('confirm_delete_poll')) {
-            if (Poll::deleteEntirePoll($poll->id)) {
+            if ($poll->delete()) {
                 session()->flash('success', __('adminpoll.Poll fully deleted'));
                 Mail::send(new SendPollNotification($poll, SendPollNotification::DELETED_POLL));
             } else {
@@ -298,7 +298,7 @@ class ViewAdminPollController extends Controller
                 'poll_id' => $poll->id,
                 'admin_poll_id' => $adminPollId,
                 'title' => __('generic.Poll') . ' - ' . $poll->title
-            ])->render();
+            ]);
         }
 
         // -------------------------------
@@ -395,6 +395,6 @@ class ViewAdminPollController extends Controller
             'admin_poll_id' => $admin_poll_id,
             'format' => $poll->format,
             'title' => __('generic.Poll') . ' - ' . $poll->title
-        ])->render();
+        ]);
     }
 }

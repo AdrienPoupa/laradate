@@ -11,7 +11,7 @@
         <div class="alert alert-dismissible alert-danger" role="alert">{{ session()->get('danger') }} <button type="button" class="close" data-dismiss="alert" aria-label="@lang('generic.Close')"><span aria-hidden="true">&times;</span></button></div>
     @endif
     <form method="post">
-        {{ csrf_field() }}
+        @csrf
         <div class="row">
             <div class="col-md-6 col-md-offset-3 text-center">
                 <div class="form-group">

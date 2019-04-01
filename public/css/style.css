@@ -519,7 +519,6 @@ table.results > tbody > tr:hover > td .glyphicon {
 }
 
 .table-of-polls {
-    overflow-x: scroll;
     margin-bottom: 0;
     border: 0;
     box-shadow: none;

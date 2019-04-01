@@ -18,7 +18,8 @@
         "fideloper/proxy": "~4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "~1.0",
-        "rap2hpoutre/laravel-log-viewer": "~1.0"
+        "rap2hpoutre/laravel-log-viewer": "~1.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",

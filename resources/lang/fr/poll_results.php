@@ -14,7 +14,7 @@ return
   'Best choice' => 'Meilleur choix',
   'Best choices' => 'Meilleurs choix',
   'The best choice at this time is:' => 'Pour l\'instant, le choix ayant reçu le plus grand nombre de votes est :',
-  'The bests choices at this time are:' => 'Pour l\'instant, les choix ayant reçu le plus grand nombre de votes sont :',
+  'The best choices at this time are:' => 'Pour l\'instant, les choix ayant reçu le plus grand nombre de votes sont :',
   'Scroll to the left' => 'Faire défiler à gauche',
   'Scroll to the right' => 'Faire défiler à droite',
   'polled user' => 'votant',

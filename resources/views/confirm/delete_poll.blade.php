@@ -2,7 +2,7 @@
 
 @section('main')
 <form action="{{ \App\Utils::getPollUrl($admin_poll_id, true) }}" method="POST">
-    {{ csrf_field() }}
+    @csrf
     <div class="alert alert-danger text-center">
         <h2>@lang('adminpoll.Confirm removal of the poll')</h2>
         <p><button class="btn btn-default" type="submit" name="cancel">@lang('adminpoll.Keep the poll')</button>

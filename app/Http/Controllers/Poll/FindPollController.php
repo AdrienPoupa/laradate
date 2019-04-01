@@ -14,7 +14,7 @@ class FindPollController extends Controller
     {
         return view('find_polls', [
             'title' => __('homepage.Where are my polls'),
-        ])->render();
+        ]);
     }
     
     public function post(Request $request)

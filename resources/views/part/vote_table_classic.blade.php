@@ -13,7 +13,7 @@
 
 <div id="tableContainer" class="tableContainer">
     <form action=" @if ($admin) {{ \App\Utils::getPollUrl($admin_poll_id, true) }} @else {{ \App\Utils::getPollUrl($poll_id) }} @endif" method="POST"  id="poll_form">
-        {{ csrf_field() }}
+        @csrf
         <input type="hidden" name="control" value="{{ $slots_hash }}"/>
         <table class="results">
             <caption class="sr-only">@lang('poll_results.Votes of the poll') {{ $poll->title }}</caption>
@@ -202,14 +202,14 @@
 
             @if (!$hidden)
                 {{-- Line displaying best moments --}}
-                <?php $count_bests = 0; ?>
+                <?php $count_best = 0; ?>
                 <?php $max = max($best_choices['y']); ?>
                 @if ($max > 0)
                     <tr id="addition">
                         <td>@lang('poll_results.Addition')<br/>{{ count($votes) }} @if ((count($votes))==1) @lang('poll_results.polled user') @else @lang('poll_results.polled users') @endif </td>
                         @foreach ($best_choices['y'] as $i=>$best_choice)
                             @if ($max == $best_choice)
-                                <?php $count_bests++; ?>
+                                <?php $count_best++; ?>
                                 <td><i class="glyphicon glyphicon-star text-info"></i><span class="yes-count">{{ $best_choice }}</span> @if ($best_choices['inb'][$i]>0) <br/><span class="small text-muted">(+<span class="inb-count">{{ $best_choices['inb'][$i] }}</span>)</span> @endif </td>
                             @elseif ($best_choice > 0)
                                 <td><span class="yes-count">{{ $best_choice }}</span>@if ($best_choices['inb'][$i]>0) <br/><span class="small text-muted">(+<span class="inb-count">{{  $best_choices['inb'][$i] }}</span>)</span> @endif </td>
@@ -309,14 +309,14 @@
     <?php $max = max($best_choices['y']); ?>
     @if ($max > 0)
         <div class="row">
-        @if ($count_bests == 1)
+        @if ($count_best == 1)
         <div class="col-sm-12"><h3>@lang('poll_results.Best choice')</h3></div>
         <div class="col-sm-6 col-sm-offset-3 alert alert-info">
             <p><i class="glyphicon glyphicon-star text-info"></i> @lang('poll_results.The best choice at this time is:')</p>
-            @elseif ($count_bests > 1)
+            @elseif ($count_best > 1)
             <div class="col-sm-12"><h3>@lang('poll_results.Best choices')</h3></div>
             <div class="col-sm-6 col-sm-offset-3 alert alert-info">
-                <p><i class="glyphicon glyphicon-star text-info"></i> @lang('poll_results.The bests choices at this time are:')</p>
+                <p><i class="glyphicon glyphicon-star text-info"></i> @lang('poll_results.The best choices at this time are:')</p>
                 @endif
 
 
@@ -329,7 +329,7 @@
                         <?php $i++; ?>
                     @endforeach
                 </ul>
-                <p>@lang('generic.with') <b>{{ $max }}</b> @if ($max==1) @lang('generic.vote') @else @lang('generic.votes') @endif .</p>
+                <p>@lang('generic.with') <b>{{ $max }}</b> @if ($max==1) @lang('generic.vote') @else @lang('generic.votes') @endif.</p>
             </div>
         </div>
     @endif
