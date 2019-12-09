@@ -91,7 +91,7 @@ class Vote extends Model
      * @return int
      */
     public static function insertDefault($pollId, $insertPosition) {
-        return DB::update('UPDATE `' . env('DB_TABLE_PREFIX', '') . 'votes` SET choices = CONCAT(SUBSTRING(choices, 1, ?), " ", SUBSTRING(choices, ?)) WHERE poll_id = ?', [
+        return DB::update("UPDATE " . env('DB_TABLE_PREFIX', '') . "votes SET choices = CONCAT(SUBSTRING(choices, 1, ?), ' ', SUBSTRING(choices, ?)) WHERE poll_id = ?", [
             $insertPosition,
             $insertPosition + 1,
             $pollId
@@ -106,7 +106,7 @@ class Vote extends Model
      * @return bool|null true if action succeeded.
      */
     public static function deleteByIndex($pollId, $index) {
-        return DB::update('UPDATE `' . env('DB_TABLE_PREFIX', '') . 'votes` SET choices = CONCAT(SUBSTR(choices, 1, ?), SUBSTR(choices, ?)) WHERE poll_id = ?',
+        return DB::update("UPDATE " . env('DB_TABLE_PREFIX', '') . "votes SET choices = CONCAT(SUBSTR(choices, 1, ?), SUBSTR(choices, ?)) WHERE poll_id = ?",
             [$index, $index + 2, $pollId]
         );
     }
