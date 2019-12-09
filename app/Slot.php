@@ -289,7 +289,7 @@ class Slot extends Model
     public static function sort($slots) {
         $array = $slots->toArray();
         uasort($array, function ($a, $b) {
-            return $a->title > $b->title;
+            return $a['title'] > $b['title'];
         });
         return $array;
     }
