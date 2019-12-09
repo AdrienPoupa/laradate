@@ -35,10 +35,12 @@ class ViewPollController extends Controller
         $editedVoteUniqueId = session()->get('UserVotes')[$poll->id];
 
         if (!is_null($poll->password_hash)) {
+            $password = null;
 
             // If we came from password submission
             if ($request->has('password')) {
-                session()->put('poll_security.'.$poll->id, $request->input('password'));
+                $password = $request->input('password');
+                session()->put('poll_security.'.$poll->id, $password);
                 session()->save();
             }
 
