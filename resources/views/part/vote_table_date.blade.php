@@ -110,7 +110,7 @@
                     <?php $k = 0; ?>
                     @foreach ($slots as $slot)
                       @foreach ($slot->moments as $moment)
-                        <?php $choice = $vote->choices[$k] ?>
+                        <?php $choice = array_get($vote->choices, $k) ?>
 
 
                         <td class="bg-info" headers="M{{ $headersM[$k] }} D{{  $headersD[$k] }} H{{  $headersH[$k] }}">
@@ -169,7 +169,7 @@
                 <?php $k = 0; ?>
                     @foreach ($slots as $slot)
                       @foreach ($slot->moments as $moment)
-                        <?php $choice = $vote->choices[$k] ?>
+                        <?php $choice = array_get($vote->choices, $k) ?>
 
                         @if ($choice=='2')
                             <td class="bg-success text-success" headers="M{{ $headersM[$k] }} D{{  $headersD[$k] }} H{{ $k }}"><i class="glyphicon glyphicon-ok"></i><span class="sr-only">@lang('generic.Yes')</span></td>
@@ -382,7 +382,7 @@
                 <ul class="list-unstyled">
                     @foreach ($slots as $slot)
                         @foreach ($slot->moments as $moment)
-                            @if ($best_choices['y'][$i] == $max)
+                            @if (isset($best_choices['y'][$i]) && $best_choices['y'][$i] == $max)
                                 <li><strong>{{ strftime(__('date.FULL'), $slot->day) }} - {{  $moment }}</strong></li>
                             @endif
                             <?php $i++; ?>
