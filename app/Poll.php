@@ -169,20 +169,20 @@ class Poll extends Model
         // Polls
         $polls = Poll::with('votes')->orderBy('title', 'asc');
 
-        if (request()->has('poll')) {
-            $polls = $polls->orWhere('id', 'LIKE', '%'.request()->get('poll').'%');
+        if (request()->input('poll')) {
+            $polls = $polls->orWhere('id', 'LIKE', '%'.request()->input('poll').'%');
         }
 
-        if (request()->get('title')) {
-            $polls = $polls->orWhere('title', 'LIKE', '%'.request()->get('title').'%');
+        if (request()->input('title')) {
+            $polls = $polls->orWhere('title', 'LIKE', '%'.request()->input('title').'%');
         }
 
-        if (request()->get('name')) {
-            $polls = $polls->orWhere('admin_name', 'LIKE', '%'.request()->get('name').'%');
+        if (request()->input('name')) {
+            $polls = $polls->orWhere('admin_name', 'LIKE', '%'.request()->input('name').'%');
         }
 
-        if (request()->get('mail')) {
-            $polls = $polls->orWhere('admin_mail', 'LIKE', '%'.request()->get('mail').'%');
+        if (request()->input('mail')) {
+            $polls = $polls->orWhere('admin_mail', 'LIKE', '%'.request()->input('mail').'%');
         }
 
         return $polls->paginate(15);
