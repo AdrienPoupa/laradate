@@ -17,7 +17,7 @@ class Install extends Migration
         Schema::defaultStringLength(191);
 
         Schema::create('polls', function (Blueprint $table) {
-            $table->char('id', 16);
+            $table->string('id', 16);
             $table->char('admin_id', 24);
             $table->text('title');
             $table->text('description')->nullable();;
