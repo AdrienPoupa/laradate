@@ -55,11 +55,11 @@ class CommentPollController extends Controller
             'comments' => $comments,
             'admin' => $admin,
             'admin_poll_id' => $poll->admin_id,
-            'poll_id' => $pollId,
+            'poll_id' => $poll->id,
             'expired' => strtotime($poll->end_date) < time()
         ]);
 
-        $response = ['result' => $result, 'message' => session()->get('info'), 'comments' => $comments_html];
+        $response = ['result' => $result, 'message' => session()->get('info'), 'comments' => (string) $comments_html];
 
         return json_encode($response);
     }
