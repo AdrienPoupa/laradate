@@ -115,7 +115,7 @@ class ViewAdminPollController extends Controller
                     $updated = true;
                 }
             } elseif ($field == 'hidden') {
-                $hidden = $request->has('hidden') ? $request->input('hidden') : false;
+                $hidden = $request->has('hidden');
                 if ($hidden != $poll->hidden) {
                     $poll->hidden = $hidden;
                     $poll->results_publicly_visible = false;
