@@ -194,7 +194,16 @@ class Poll extends Model
      * @return bool true is action succeeded
      */
     public static function purgeOldPolls() {
-        $oldPolls = Poll::whereRaw('DATE_ADD(`end_date`, INTERVAL ' . config('laradate.PURGE_DELAY') . ' DAY) < NOW() AND `end_date` != 0')->limit(20)->get();
+        $pdoDriver = DB::connection()->getPdo()->getAttribute(\PDO::ATTR_DRIVER_NAME);
+        switch ($pdoDriver) {
+            case 'pgsql':
+                $oldPolls = Poll::whereRaw("end_date +  INTERVAL '". config('laradate.PURGE_DELAY') . " DAY' < NOW() AND end_date IS NOT NULL")->limit(20)->get();
+                break;
+            case 'mysql':
+            default:
+                $oldPolls = Poll::whereRaw("DATE_ADD(end_date, INTERVAL " . config('laradate.PURGE_DELAY') . " DAY) < NOW() AND end_date != 0")->limit(20)->get();
+                break;
+        }
         $count = count($oldPolls);
 
         if ($count > 0) {
