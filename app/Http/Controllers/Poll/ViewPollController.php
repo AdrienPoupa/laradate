@@ -160,7 +160,7 @@ class ViewPollController extends Controller
     }
 
     private function getMessageForOwnVoteEditableVote($editedVoteUniqueId, $pollId, $name) {
-        session()->put('UserVotes.'.$poll_id, $editedVoteUniqueId);
+        session()->put('UserVotes.'.$pollId, $editedVoteUniqueId);
         session()->save();
         $urlEditVote = Utils::getPollUrl($pollId, false, $editedVoteUniqueId);
 
