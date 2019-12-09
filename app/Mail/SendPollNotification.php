@@ -47,12 +47,12 @@ class SendPollNotification extends Mailable
         }
 
         if (self::isParticipation()) {
-            $translationString = 'Poll\'s participation: %s';
+            $translationString = 'Poll\'s participation: :s';
         } else {
-            $translationString = 'Notification of poll: %s';
+            $translationString = 'Notification of poll: :s';
         }
 
-        $subject = '[' . config('app.name') . '] ' . __('mail'.$translationString, ['s' => $this->poll->title]);
+        $subject = '[' . config('app.name') . '] ' . __('mail.'.$translationString, ['s' => $this->poll->title]);
 
         $message = '';
 
